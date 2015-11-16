@@ -411,7 +411,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = LeDanDan/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/LeDanDanTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ledandan.xieping.LeDanDan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -422,7 +423,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = LeDanDan/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/LeDanDanTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ledandan.xieping.LeDanDan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -496,6 +498,7 @@
 				6767BA0D1BF9BBBF00621762 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6767BA0E1BF9BBBF00621762 /* Build configuration list for PBXNativeTarget "LeDanDanTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +507,7 @@
 				6767BA101BF9BBBF00621762 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6767BA111BF9BBBF00621762 /* Build configuration list for PBXNativeTarget "LeDanDanUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +516,7 @@
 				6767BA131BF9BBBF00621762 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
