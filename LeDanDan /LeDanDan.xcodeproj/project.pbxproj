@@ -850,7 +850,7 @@
 		DC38B83B1BEAFF1D0014D06A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DC38B8401BEB158B0014D06A /* Home */,
+				DC38B8401BEB158B0014D06A /* 家 */,
 				DC38B83C1BEAFF2B0014D06A /* Mine */,
 			);
 			name = View;
@@ -872,14 +872,14 @@
 			name = Mine;
 			sourceTree = "<group>";
 		};
-		DC38B8401BEB158B0014D06A /* Home */ = {
+		DC38B8401BEB158B0014D06A /* 家 */ = {
 			isa = PBXGroup;
 			children = (
 				DC38B8411BEB15CA0014D06A /* HomeTableViewCell.h */,
 				DC38B8421BEB15CA0014D06A /* HomeTableViewCell.m */,
 				DC38B8431BEB15CA0014D06A /* HomeTableViewCell.xib */,
 			);
-			name = Home;
+			name = "家";
 			sourceTree = "<group>";
 		};
 		DCA558931BD9C8A5004502C1 = {
