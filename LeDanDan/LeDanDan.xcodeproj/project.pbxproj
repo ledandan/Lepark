@@ -247,6 +247,13 @@
 		670DE40B1BFAEDA00067561D /* travle.png in Resources */ = {isa = PBXBuildFile; fileRef = 670DE3E71BFAEDA00067561D /* travle.png */; };
 		670DE40C1BFAEDA00067561D /* travle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 670DE3E81BFAEDA00067561D /* travle@2x.png */; };
 		670DE40D1BFAEDA00067561D /* travle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 670DE3E91BFAEDA00067561D /* travle@3x.png */; };
+		670DE4151BFC2A9E0067561D /* MSDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 670DE4141BFC2A9E0067561D /* MSDatePicker.m */; };
+		670DE41A1BFC2AC40067561D /* UIView_extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 670DE4191BFC2AC40067561D /* UIView_extra.m */; };
+		670DE41F1BFC2B3C0067561D /* ico_make.png in Resources */ = {isa = PBXBuildFile; fileRef = 670DE41C1BFC2B3C0067561D /* ico_make.png */; };
+		670DE4201BFC2B3C0067561D /* JSDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 670DE41E1BFC2B3C0067561D /* JSDropDownMenu.m */; };
+		670DE4261BFC48B00067561D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 670DE4231BFC48B00067561D /* LoginViewController.m */; };
+		670DE4271BFC48B00067561D /* RegesitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 670DE4251BFC48B00067561D /* RegesitViewController.m */; };
+		670DE42B1BFC49360067561D /* TravelEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 670DE42A1BFC49360067561D /* TravelEditViewController.m */; };
 		DC38B82A1BE9A6C50014D06A /* CollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC38B8281BE9A6C50014D06A /* CollectionTableViewCell.m */; };
 		DC38B82B1BE9A6C50014D06A /* CollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC38B8291BE9A6C50014D06A /* CollectionTableViewCell.xib */; };
 		DC38B82E1BE9B63F0014D06A /* TravleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC38B82D1BE9B63F0014D06A /* TravleVC.m */; };
@@ -527,6 +534,20 @@
 		670DE3E71BFAEDA00067561D /* travle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = travle.png; sourceTree = "<group>"; };
 		670DE3E81BFAEDA00067561D /* travle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "travle@2x.png"; sourceTree = "<group>"; };
 		670DE3E91BFAEDA00067561D /* travle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "travle@3x.png"; sourceTree = "<group>"; };
+		670DE4131BFC2A9E0067561D /* MSDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDatePicker.h; sourceTree = "<group>"; };
+		670DE4141BFC2A9E0067561D /* MSDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSDatePicker.m; sourceTree = "<group>"; };
+		670DE4171BFC2AC40067561D /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		670DE4181BFC2AC40067561D /* UIView_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIView_extra.h; sourceTree = "<group>"; };
+		670DE4191BFC2AC40067561D /* UIView_extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIView_extra.m; sourceTree = "<group>"; };
+		670DE41C1BFC2B3C0067561D /* ico_make.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ico_make.png; sourceTree = "<group>"; };
+		670DE41D1BFC2B3C0067561D /* JSDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSDropDownMenu.h; sourceTree = "<group>"; };
+		670DE41E1BFC2B3C0067561D /* JSDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDropDownMenu.m; sourceTree = "<group>"; };
+		670DE4221BFC48B00067561D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		670DE4231BFC48B00067561D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		670DE4241BFC48B00067561D /* RegesitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegesitViewController.h; sourceTree = "<group>"; };
+		670DE4251BFC48B00067561D /* RegesitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegesitViewController.m; sourceTree = "<group>"; };
+		670DE4291BFC49360067561D /* TravelEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelEditViewController.h; sourceTree = "<group>"; };
+		670DE42A1BFC49360067561D /* TravelEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelEditViewController.m; sourceTree = "<group>"; };
 		DC38B8271BE9A6C50014D06A /* CollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionTableViewCell.h; path = LeDanDan/CollectionTableViewCell.h; sourceTree = "<group>"; };
 		DC38B8281BE9A6C50014D06A /* CollectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectionTableViewCell.m; path = LeDanDan/CollectionTableViewCell.m; sourceTree = "<group>"; };
 		DC38B8291BE9A6C50014D06A /* CollectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CollectionTableViewCell.xib; path = LeDanDan/CollectionTableViewCell.xib; sourceTree = "<group>"; };
@@ -956,6 +977,108 @@
 			path = Mine;
 			sourceTree = "<group>";
 		};
+		670DE40E1BFC299A0067561D /* public */ = {
+			isa = PBXGroup;
+			children = (
+				670DE41B1BFC2B3C0067561D /* JSDropDownMenu */,
+				670DE4161BFC2AAD0067561D /* Extra */,
+				670DE4121BFC2A9E0067561D /* MS-OCDatePicker */,
+			);
+			name = public;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		670DE40F1BFC29CF0067561D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				670DE4281BFC49250067561D /* Traveller */,
+				670DE4211BFC48980067561D /* Login */,
+				670DE40E1BFC299A0067561D /* public */,
+				670DE4111BFC2A160067561D /* HomeVC */,
+				DC38B83A1BEAFEA00014D06A /* MineDetail */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		670DE4101BFC29DC0067561D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		670DE4111BFC2A160067561D /* HomeVC */ = {
+			isa = PBXGroup;
+			children = (
+				DCA558C51BDF4BBB004502C1 /* NTViewController.h */,
+				DCA558C61BDF4BBB004502C1 /* NTViewController.m */,
+				DCA558C81BE1AA9D004502C1 /* NTButton.h */,
+				DCA558C91BE1AA9D004502C1 /* NTButton.m */,
+				DCDB53D51BE6F60000B81460 /* MessageVC.h */,
+				DCDB53D61BE6F60000B81460 /* MessageVC.m */,
+				DCDB53D21BE6F5E100B81460 /* HomeVC.h */,
+				DCDB53D31BE6F5E100B81460 /* HomeVC.m */,
+				DC38B8461BEB25CE0014D06A /* PlayVC.h */,
+				DC38B8471BEB25CE0014D06A /* PlayVC.m */,
+				DC38B83D1BEB153E0014D06A /* PlayDetailViewController.h */,
+				DC38B83E1BEB153E0014D06A /* PlayDetailViewController.m */,
+				DCDB53D81BE6F63200B81460 /* MineVC.h */,
+				DCDB53D91BE6F63200B81460 /* MineVC.m */,
+			);
+			name = HomeVC;
+			sourceTree = "<group>";
+		};
+		670DE4121BFC2A9E0067561D /* MS-OCDatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				670DE4131BFC2A9E0067561D /* MSDatePicker.h */,
+				670DE4141BFC2A9E0067561D /* MSDatePicker.m */,
+			);
+			name = "MS-OCDatePicker";
+			path = "MS-OCDatePicker副本";
+			sourceTree = "<group>";
+		};
+		670DE4161BFC2AAD0067561D /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				670DE4171BFC2AC40067561D /* PrefixHeader.pch */,
+				670DE4181BFC2AC40067561D /* UIView_extra.h */,
+				670DE4191BFC2AC40067561D /* UIView_extra.m */,
+			);
+			name = Extra;
+			sourceTree = "<group>";
+		};
+		670DE41B1BFC2B3C0067561D /* JSDropDownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				670DE41C1BFC2B3C0067561D /* ico_make.png */,
+				670DE41D1BFC2B3C0067561D /* JSDropDownMenu.h */,
+				670DE41E1BFC2B3C0067561D /* JSDropDownMenu.m */,
+			);
+			name = JSDropDownMenu;
+			path = "JSDropDownMenu副本";
+			sourceTree = "<group>";
+		};
+		670DE4211BFC48980067561D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				670DE4221BFC48B00067561D /* LoginViewController.h */,
+				670DE4231BFC48B00067561D /* LoginViewController.m */,
+				670DE4241BFC48B00067561D /* RegesitViewController.h */,
+				670DE4251BFC48B00067561D /* RegesitViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		670DE4281BFC49250067561D /* Traveller */ = {
+			isa = PBXGroup;
+			children = (
+				670DE4291BFC49360067561D /* TravelEditViewController.h */,
+				670DE42A1BFC49360067561D /* TravelEditViewController.m */,
+			);
+			name = Traveller;
+			sourceTree = "<group>";
+		};
 		DC38B83A1BEAFEA00014D06A /* MineDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -971,6 +1094,7 @@
 				DC38B8351BEAEFF70014D06A /* TravleEditAddVC.m */,
 			);
 			name = MineDetail;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		DC38B83B1BEAFF1D0014D06A /* View */ = {
@@ -980,6 +1104,7 @@
 				DC38B83C1BEAFF2B0014D06A /* Mine */,
 			);
 			name = View;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		DC38B83C1BEAFF2B0014D06A /* Mine */ = {
@@ -1011,8 +1136,6 @@
 		DCA558931BD9C8A5004502C1 = {
 			isa = PBXGroup;
 			children = (
-				DC38B83B1BEAFF1D0014D06A /* View */,
-				DC38B83A1BEAFEA00014D06A /* MineDetail */,
 				DCA558CB1BE1AB41004502C1 /* Image */,
 				DCA5589E1BD9C8A5004502C1 /* LeDanDan */,
 				DCA558B81BD9C8A5004502C1 /* LeDanDanTests */,
@@ -1032,24 +1155,13 @@
 		DCA5589E1BD9C8A5004502C1 /* LeDanDan */ = {
 			isa = PBXGroup;
 			children = (
+				DC38B83B1BEAFF1D0014D06A /* View */,
+				670DE4101BFC29DC0067561D /* Model */,
+				670DE40F1BFC29CF0067561D /* Controller */,
 				DCA558A31BD9C8A5004502C1 /* AppDelegate.h */,
 				DCA558A41BD9C8A5004502C1 /* AppDelegate.m */,
 				DCA558A61BD9C8A5004502C1 /* ViewController.h */,
 				DCA558A71BD9C8A5004502C1 /* ViewController.m */,
-				DCA558C51BDF4BBB004502C1 /* NTViewController.h */,
-				DCA558C61BDF4BBB004502C1 /* NTViewController.m */,
-				DCA558C81BE1AA9D004502C1 /* NTButton.h */,
-				DCA558C91BE1AA9D004502C1 /* NTButton.m */,
-				DCDB53D51BE6F60000B81460 /* MessageVC.h */,
-				DCDB53D61BE6F60000B81460 /* MessageVC.m */,
-				DCDB53D21BE6F5E100B81460 /* HomeVC.h */,
-				DCDB53D31BE6F5E100B81460 /* HomeVC.m */,
-				DC38B8461BEB25CE0014D06A /* PlayVC.h */,
-				DC38B8471BEB25CE0014D06A /* PlayVC.m */,
-				DC38B83D1BEB153E0014D06A /* PlayDetailViewController.h */,
-				DC38B83E1BEB153E0014D06A /* PlayDetailViewController.m */,
-				DCDB53D81BE6F63200B81460 /* MineVC.h */,
-				DCDB53D91BE6F63200B81460 /* MineVC.m */,
 				DCA558A91BD9C8A5004502C1 /* Main.storyboard */,
 				DCA558AC1BD9C8A5004502C1 /* Images.xcassets */,
 				DCA558AE1BD9C8A5004502C1 /* LaunchScreen.xib */,
@@ -1346,6 +1458,7 @@
 				670DE4061BFAEDA00067561D /* order@2x.png in Resources */,
 				670DE3441BFAE9C70067561D /* mine_notselect@3x.png in Resources */,
 				670DE3111BFAE9C70067561D /* corner-mark@3x.png in Resources */,
+				670DE41F1BFC2B3C0067561D /* ico_make.png in Resources */,
 				670DE2461BFAE8C70067561D /* back.png in Resources */,
 				670DE3F41BFAEDA00067561D /* exit@2x.png in Resources */,
 				670DE3B91BFAEC210067561D /* clear@3x.png in Resources */,
@@ -1452,9 +1565,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCA558CA1BE1AA9D004502C1 /* NTButton.m in Sources */,
+				670DE4261BFC48B00067561D /* LoginViewController.m in Sources */,
+				670DE4151BFC2A9E0067561D /* MSDatePicker.m in Sources */,
+				670DE42B1BFC49360067561D /* TravelEditViewController.m in Sources */,
 				DC38B8481BEB25CE0014D06A /* PlayVC.m in Sources */,
+				670DE4271BFC48B00067561D /* RegesitViewController.m in Sources */,
+				670DE41A1BFC2AC40067561D /* UIView_extra.m in Sources */,
 				DC38B8391BEAF90A0014D06A /* SuggestVC.m in Sources */,
 				DCA558A81BD9C8A5004502C1 /* ViewController.m in Sources */,
+				670DE4201BFC2B3C0067561D /* JSDropDownMenu.m in Sources */,
 				DCDB53D71BE6F60000B81460 /* MessageVC.m in Sources */,
 				DCA558A51BD9C8A5004502C1 /* AppDelegate.m in Sources */,
 				DCDB53D41BE6F5E100B81460 /* HomeVC.m in Sources */,
@@ -1597,6 +1716,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = /Users/HerryHan/Desktop/Lepark/LeDanDan/PrefixHeader.pch;
 				INFOPLIST_FILE = LeDanDan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1607,6 +1727,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = /Users/HerryHan/Desktop/Lepark/LeDanDan/PrefixHeader.pch;
 				INFOPLIST_FILE = LeDanDan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -11,6 +11,7 @@
 #import "CollectionVC.h"
 #import "TravleVC.h"
 #import "SuggestVC.h"
+#import "LoginViewController.h"
 
 @interface MineVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -37,13 +38,50 @@
 -(void)createTB
 {
     
-    UIView *view=[[UIImageView alloc]initWithFrame:CGRectMake(0,0, self.view.frame.size.width+100000, 180)];
+    //大图
+    UIView *view=[[UIImageView alloc]initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 180)];
     UIImageView *imageview= [[UIImageView alloc]init];
     imageview.frame = view.frame;
     imageview.image = [UIImage imageNamed:@"bg@2x"];
+    //imageview.alpha = 0.5;
     [self.view addSubview:view];
     [view addSubview:imageview];
-
+    
+    //添加毛玻璃
+    UIVisualEffect *blurEffect;
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *visualEffectView;
+    visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    [visualEffectView setFrame:view.bounds];
+    // [view addSubview:visualEffectView];
+    
+    //头像
+    UIImageView *iconImage= [[UIImageView alloc]init];
+    iconImage.frame = CGRectMake(0, 0, 60, 60);
+    iconImage.image = [UIImage imageNamed:@"userhead@2x"];
+    iconImage.centerX = view.centerX;
+    iconImage.centerY = view.centerY;
+    iconImage.layer.cornerRadius = iconImage.width/2;
+    [view addSubview:iconImage];
+    UIButton *iconBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    iconBtn.layer.cornerRadius = iconBtn.width/2;
+    iconBtn.frame = iconImage.frame ;
+    //iconBtn.backgroundColor = [UIColor redColor];
+    [iconBtn addTarget:self action:@selector(headClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:iconBtn];
+    
+    //名字
+    UILabel *nameLabel = [[UILabel alloc]init];
+    nameLabel.frame = CGRectMake(0, 0, 200, 20);
+    nameLabel.centerX = imageview.centerX;
+    nameLabel.y = iconImage.bottom +10;
+    nameLabel.text = @"未登录,点击头像登录";
+    nameLabel.font = [UIFont boldSystemFontOfSize:15];
+    nameLabel.textAlignment = 1;
+    nameLabel.textColor = [UIColor whiteColor];
+    [view addSubview:nameLabel];
+    
+    
     _tableView =[[UITableView alloc]initWithFrame:CGRectMake(0,180, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStyleGrouped];
     _tableView.delegate =self;
     _tableView.dataSource =self;
@@ -244,6 +282,14 @@ else
             break;
     }
     
+}
+
+//点击头像
+-(void)headClick
+{
+    NSLog(@"头像点击");
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 

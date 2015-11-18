@@ -9,6 +9,7 @@
 #import "TravleVC.h"
 #import "TravleTableViewCell.h"
 #import "TravleEditAddVC.h"
+#import "TravelEditViewController.h"
 
 @interface TravleVC ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -149,7 +150,7 @@
 
 -(void)edit: (UIButton *)btn
 {
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[TravleEditAddVC new]];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[TravelEditViewController new]];
     [self presentViewController:nav animated:YES completion:nil];
 }
 
