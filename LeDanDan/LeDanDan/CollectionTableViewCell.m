@@ -9,14 +9,7 @@
 #import "CollectionTableViewCell.h"
 
 @implementation CollectionTableViewCell
-{
-    UIImageView *PlayImage;
-    UILabel *PlayName;
-    UILabel *time;
-    UILabel *address;
-    UILabel *NoCollection;
-    UILabel *price;
-}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -27,32 +20,39 @@
         //line.center = CGPointMake(self.center.x, line.center.y);
         [self.contentView addSubview:line1];
 
-        PlayImage =[[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 30, 30)];
-        PlayImage.backgroundColor = [UIColor redColor];
-        [self.contentView addSubview:PlayImage];
+        _playImage =[[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 80, 80)];
+        _playImage.backgroundColor = [UIColor redColor];
+        _playImage.image = [UIImage imageNamed:@"2"];
+        [self.contentView addSubview:_playImage];
         
-        PlayName = [[UILabel alloc]initWithFrame:CGRectMake(PlayImage.frame.origin.x + PlayImage.frame.size.width +15, 10, 90, 15)];
-        PlayName.text = @"111111111111111";
-        PlayName.font = [UIFont boldSystemFontOfSize:10];
-        [self.contentView addSubview:PlayName];
+        _playName = [[UILabel alloc]initWithFrame:CGRectMake(_playImage.frame.origin.x + _playImage.frame.size.width +15, 15, 200, 15)];
+        _playName.text = @"小小地址学家启蒙课";
+        _playName.font = [UIFont boldSystemFontOfSize:16];
+        [self.contentView addSubview:_playName];
         
+        _time=[[UILabel alloc]initWithFrame:CGRectMake(_playImage.frame.origin.x+_playImage.frame.size.width+15, _playName.bottom + 5, 80, 25)];
+        _time.font=[UIFont boldSystemFontOfSize:10];
+        _time.text=@"周六";
+        _time.font=[UIFont systemFontOfSize:12];
+        [self.contentView addSubview:_time];
+        _address= [[UILabel alloc]initWithFrame:CGRectMake(_playImage.frame.origin.x + _playImage.frame.size.width +15, _time.bottom+ 5, 80, 15)];
+        _address.text = @"上海市";
+        _address.font =[UIFont systemFontOfSize:16];
+        _address.textColor = [UIColor grayColor];
+        [self.contentView addSubview:_address];
+    
+        _NoCollection = [UIButton buttonWithType:UIButtonTypeCustom];
+        _NoCollection.frame = CGRectMake(kScreenWidth - 80, _playName.bottom, 60, 20);
+        [_NoCollection setTitle:@"取消收藏" forState: UIControlStateNormal];
+        _NoCollection.titleLabel.font =[UIFont systemFontOfSize:15];
+        [_NoCollection setTitleColor: [UIColor grayColor] forState:UIControlStateNormal];
         
-        time=[[UILabel alloc]initWithFrame:CGRectMake(PlayImage.frame.origin.x+PlayImage.frame.size.width+15, PlayName.frame.origin.y +PlayName.frame.size.height + 22, 80, 15)];
-        time.font=[UIFont boldSystemFontOfSize:10];
-        time.text=@"周六";
-       // time.font=[UIFont fontWithName:@"6" size:9];
-        [self.contentView addSubview:time];
-                address= [[UILabel alloc]initWithFrame:CGRectMake(PlayImage.frame.origin.x + PlayImage.frame.size.width +15, PlayName.frame.origin.y +PlayName.frame.size.height + 5, 80, 15)];
-        address.text = @"上海市";
-        [self.contentView addSubview:address];
+        [self.contentView addSubview:_NoCollection];
         
-        NoCollection = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.size.width -80, 22, 80, 15)];
-        NoCollection.text = @"取消收藏";
-       [ self.contentView addSubview:NoCollection];
-        
-        price=[[UILabel alloc]initWithFrame:CGRectMake(self.frame.size.width -80, PlayName.frame.origin.y +PlayName.frame.size.height + 5, 80, 15)];
-        price.text=@"120";
-        [self.contentView addSubview:price];
+        _price=[[UILabel alloc]initWithFrame:CGRectMake(_NoCollection.x, _playImage.bottom - 15, 80, 15)];
+        _price.text=@"￥ 120";
+        _price.textColor = [UIColor colorWithRed:0.96 green:0.5 blue:0.4 alpha:1];
+        [self.contentView addSubview:_price];
     
     
     }

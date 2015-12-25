@@ -64,10 +64,6 @@
    // [navi3.navigationBar setBarTintColor:[UIColor colorWithRed:0.96f green:0.5f blue:0.4f alpha:1]];
     
     //
-    
-    
-    
-    
     NTButton * button = _tabBarview.subviews[0];
     [self changeViewController:button];
 }

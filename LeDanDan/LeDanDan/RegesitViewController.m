@@ -13,6 +13,13 @@
     UITextField *_phoneTextField;
     UITextField *_passwordTextfield;
     UITextField *_verCodeTextfield;
+    UITextField *_inviteTextfield;
+    
+    UIButton *_verBtn;
+    
+    int secondsCountDown; //倒计时总时长
+    NSTimer *countDownTimer;
+    UITableView *_tableView;
 }
 @end
 
@@ -42,18 +49,18 @@
 
 -(void)addControl
 {
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 250) style:UITableViewStyleGrouped];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    tableView.backgroundColor = self.view.backgroundColor;
-    tableView.showsHorizontalScrollIndicator= NO;
-    tableView.showsVerticalScrollIndicator = NO;
-    tableView.scrollEnabled =NO;
-    [self.view addSubview:tableView];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 330) style:UITableViewStyleGrouped];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.backgroundColor = self.view.backgroundColor;
+    _tableView.showsHorizontalScrollIndicator= NO;
+    _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.scrollEnabled =NO;
+    [self.view addSubview:_tableView];
     
     
     //立即注册
-    UIButton *regBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, tableView.bottom +10, kScreenWidth - 30, 45)];
+    UIButton *regBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, _tableView.bottom +10, kScreenWidth - 30, 45)];
     [regBtn setTitle:@"立即注册" forState: UIControlStateNormal];
     regBtn.backgroundColor = [UIColor colorWithRed:0.96f green:0.5f blue:0.4f alpha:1];
     regBtn.layer.cornerRadius = 5;
@@ -71,6 +78,38 @@
     
 }
 
+//点击获取验证码
+-(void)verPress
+{
+    //设置倒计时总时长
+    secondsCountDown = 60;//60秒倒计时
+    //开始倒计时
+    countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES]; //启动倒计时后会每秒钟调用一次方法 timeFireMethod
+    
+    //设置倒计时显示的时间
+    [_verBtn setTitle:[NSString stringWithFormat:@"%d",secondsCountDown] forState:UIControlStateNormal];
+    //labelText.text=[NSString stringWithFormat:@"%d",secondsCountDown];
+    
+}
+
+-(void)timeFireMethod{
+    //倒计时-1
+    secondsCountDown--;
+    //修改倒计时标签现实内容
+    [_verBtn setTitle:[NSString stringWithFormat:@"%d",secondsCountDown] forState:UIControlStateNormal];
+    //当倒计时到0时，做需要的操作，比如验证码过期不能提交
+    if(secondsCountDown==0){
+        [countDownTimer invalidate];
+        [_verBtn setTitle:@"重新获取" forState:UIControlStateNormal];
+        _verBtn.userInteractionEnabled = YES;
+    }
+    else
+    {
+        _verBtn.userInteractionEnabled = NO;
+    }
+}
+
+
 #pragma mark -----------tableView delegate ------------
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
@@ -79,7 +118,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;
+    return 5;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -112,28 +151,48 @@
         _passwordTextfield.delegate =self;
         [cell.contentView addSubview:_passwordTextfield];
     }
-    else
+    else if(indexPath.row == 2)
+    {
+        cell.backgroundColor = self.view.backgroundColor;
+    }
+    else if(indexPath.row ==3)
     {
         label.text =@"验证码:";
         _verCodeTextfield = [[UITextField alloc]initWithFrame:CGRectMake(label.right +10, 0, kScreenWidth-label.right, 50)];
-        _verCodeTextfield.placeholder = @"请输入您的验证码";
+        _verCodeTextfield.placeholder = @"请输入验证码";
         _verCodeTextfield.delegate =self;
         [cell.contentView addSubview:_verCodeTextfield];
     
-        UIButton *verBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        verBtn.frame = CGRectMake(kScreenWidth - 100, 10, 85, 30);
-        [verBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-        [verBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        verBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        verBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        verBtn.layer.borderWidth = 0.5;
-        [cell.contentView addSubview:verBtn];
+        _verBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _verBtn.frame = CGRectMake(kScreenWidth - 100, 10, 85, 30);
+        [_verBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [_verBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _verBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        _verBtn.backgroundColor = [UIColor colorWithRed:0.96f green:0.5f blue:0.4f alpha:1];
+        [_verBtn addTarget:self action:@selector(verPress) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:_verBtn];
+    }
+    else if (indexPath.row == 4)
+    {
+        
+        label.text =@"邀请码:";
+        _inviteTextfield = [[UITextField alloc]initWithFrame:CGRectMake(label.right +10, 0, kScreenWidth-label.right, 50)];
+        _inviteTextfield.placeholder = @"如果您有邀请码,请输入";
+        _inviteTextfield.delegate =self;
+        [cell.contentView addSubview:_inviteTextfield];
+
     }
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row == 2) {
+        return 15;
+    }
+    else
+    {
     return 50;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
@@ -141,6 +200,17 @@
     
 }
 
+-(void)viewDidLayoutSubviews {
+    
+    if ([_tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [_tableView setSeparatorInset:UIEdgeInsetsZero];
+        
+    }
+    if ([_tableView respondsToSelector:@selector(setLayoutMargins:)])  {
+        [_tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    
+}
 
 
 - (void)didReceiveMemoryWarning {

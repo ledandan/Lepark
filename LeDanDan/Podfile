@@ -1,0 +1,7 @@
+platform:ios,'7.0'
+pod 'MBProgressHUD','~>0.8'
+pod "AFNetworking"
+pod "SDWebImage"
+pod "JSONModel"
+pod "CMPopTipView"
+pod 'MJRefresh', '~> 3.0.7'

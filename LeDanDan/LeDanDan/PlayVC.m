@@ -98,8 +98,8 @@
     
     // [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[PlayDetailViewController new]];
-    [self presentViewController:nav animated:YES completion:nil];
+   // UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[PlayDetailViewController new]];
+    [self presentViewController:[PlayDetailViewController new] animated:YES completion:nil];
 }
 
 -(void)back

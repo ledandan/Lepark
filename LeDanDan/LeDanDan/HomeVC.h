@@ -11,4 +11,5 @@
 
 @interface HomeVC : UIViewController
 @property(nonatomic,weak)NTViewController *delegate;
+@property (nonatomic, strong) UITableView *tableView;
 @end

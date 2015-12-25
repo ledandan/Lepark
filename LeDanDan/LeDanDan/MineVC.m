@@ -12,11 +12,14 @@
 #import "TravleVC.h"
 #import "SuggestVC.h"
 #import "LoginViewController.h"
+#import "AboutLddViewController.h"
+#import "MyInformationViewController.h"
 
 @interface MineVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *_tableView;
     NSArray *_titleArray;
+    
     
 }
 
@@ -26,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    //isLogin = NO;
     //
     [self.navigationController setNavigationBarHidden:YES animated:YES];
    
@@ -82,16 +85,36 @@
     [view addSubview:nameLabel];
     
     
-    _tableView =[[UITableView alloc]initWithFrame:CGRectMake(0,180, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStyleGrouped];
+    _tableView =[[UITableView alloc]initWithFrame:CGRectMake(0,180, self.view.frame.size.width, self.view.frame.size.height - 180 - 49) style:UITableViewStyleGrouped];
     _tableView.delegate =self;
     _tableView.dataSource =self;
-    [_tableView setSeparatorInset:UIEdgeInsetsMake(0,0,0,0)];
-    [_tableView setLayoutMargins:UIEdgeInsetsMake(0,0,0,0)];
+    //[_tableView setSeparatorInset:UIEdgeInsetsMake(0,0,0,0)];
+    //[_tableView setLayoutMargins:UIEdgeInsetsMake(0,0,0,0)];
     _tableView.scrollEnabled = YES;
     [self.view  addSubview:_tableView];
     
     
 }
+
+//点击头像
+-(void)headClick
+{
+    if (_isLogin == YES) {
+        
+        NSLog(@"已经登录");
+        [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[MyInformationViewController new]] animated:YES completion:nil];
+    }
+    else
+    {
+        NSLog(@"头像点击");
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+    
+}
+
+
+#pragma mark  ------- tableViewDelegate ---------
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -171,7 +194,7 @@ else
             
             [cell.contentView addSubview:label];
             label.frame = CGRectMake(imageView.frame.origin.x + imageView.frame.size.width +10, 10, 100, 25);
-            label.text = @"出行人";
+            label.text = @"身份验证";
             label.center = CGPointMake(label.center.x, 25);
             break;
             
@@ -251,6 +274,7 @@ else
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
+        //我的订单
         case 0:
             if (YES) {
                 UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[OrderVC new]];
@@ -258,12 +282,19 @@ else
             }
 
             break;
+        //我的收藏
             case 1:
             if (YES) {
                 UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:[CollectionVC new]];
                 [self presentViewController:nav animated:YES completion:nil];
             }
             break;
+        //优惠券
+            case 2:
+            
+            break;
+            
+        //出行人
             case 4:
             if (YES) {
                 
@@ -272,11 +303,25 @@ else
             }
           
             break;
+        //意见反馈
             case 5:
             if (YES) {
                 UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:[SuggestVC new]];
                 [self presentViewController:nav animated:YES completion:nil];
             }
+            break;
+            
+            //关于
+            case 6:
+            
+            if (YES) {
+                UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:[AboutLddViewController new]];
+                [self presentViewController:nav animated:YES completion:nil];
+            }
+            break;
+            //退出
+            case 8:
+            
             break;
         default:
             break;
@@ -284,13 +329,19 @@ else
     
 }
 
-//点击头像
--(void)headClick
-{
-    NSLog(@"头像点击");
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
-    [self presentViewController:nav animated:YES completion:nil];
+-(void)viewDidLayoutSubviews {
+    
+    if ([_tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [_tableView setSeparatorInset:UIEdgeInsetsZero];
+        
+    }
+    if ([_tableView respondsToSelector:@selector(setLayoutMargins:)])  {
+        [_tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    
 }
+
+
 
 
 - (void)didReceiveMemoryWarning {

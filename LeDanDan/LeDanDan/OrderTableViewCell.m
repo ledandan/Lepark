@@ -10,15 +10,7 @@
 #import "OrderTableViewCell.h"
 
 @implementation OrderTableViewCell
-{
-    UIImageView *PlayImage;
-    UILabel *PlayName;
-    UILabel *price;
-    UILabel *status;
-    UIButton *btn;
-    
-    
-}
+
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -41,30 +33,38 @@
         //line.center = CGPointMake(self.center.x, line.center.y);
         [view addSubview:line2];
         
-        PlayImage =[[UIImageView alloc]initWithFrame:CGRectMake(15, 22, 80, 80)];
-        PlayImage.backgroundColor = [UIColor redColor];
-        [self.contentView addSubview:PlayImage];
+        _playImage =[[UIImageView alloc]initWithFrame:CGRectMake(15, 22.5, 90, 90)];
+        _playImage.backgroundColor = [UIColor redColor];
+        _playImage.image = [UIImage imageNamed:@"2"];
+        [self.contentView addSubview:_playImage];
         
-        PlayName = [[UILabel alloc]initWithFrame:CGRectMake(PlayImage.frame.origin.x + PlayImage.frame.size.width +15, 22, 90, 15)];
-        PlayName.text = @"111111111111111";
-        [self.contentView addSubview:PlayName];
+        _playName = [[UILabel alloc]initWithFrame:CGRectMake(_playImage.frame.origin.x + _playImage.frame.size.width +15, 22, 150, 15)];
+        _playName.text = @"小小地址学家启蒙课,关于地层的秘密";
+        _playName.font =[UIFont systemFontOfSize:16];
+        _playName.textColor = [UIColor grayColor];
+        _playName.numberOfLines = 0;
+        [_playName sizeToFit];
+        [self.contentView addSubview:_playName];
         
-        price = [[UILabel alloc]initWithFrame:CGRectMake(PlayImage.frame.origin.x + PlayImage.frame.size.width +15, PlayName.frame.origin.y +PlayName.frame.size.height + 54, 80, 15)];
-        price.text = @"120";
-        [self.contentView addSubview:price];
+        _price = [[UILabel alloc]initWithFrame:CGRectMake(_playImage.frame.origin.x + _playImage.frame.size.width +15, _playImage.bottom - 15, 80, 15)];
+        _price.text = @"￥ 120";
+        _price.textColor =[UIColor colorWithRed:0.96 green:0.5 blue:0.4 alpha:1];
+        [self.contentView addSubview:_price];
 
-        status = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.size.width -80, 22, 80, 15)];
-        status.text = @"待付款";
-        [self.contentView addSubview:status];
+        _status = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.size.width, 22, 80, 15)];
+        _status.text = @"待付款";
+        _status.textColor = [UIColor colorWithRed:0.96 green:0.5 blue:0.4 alpha:1];
+        _status.font = [UIFont systemFontOfSize:15];
+        [self.contentView addSubview:_status];
         
-              
-        btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(self.frame.size.width -80, price.frame.origin.y, 75, 15);
-        [btn setTitle:@"去付款" forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:15];
-        btn.backgroundColor = [UIColor colorWithRed:0.96 green:0.5 blue:0.4 alpha:1];
-        [self.contentView addSubview:btn];
         
+        _status_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _status_btn.frame = CGRectMake(kScreenWidth -100, _price.frame.origin.y - 30, 75, 30);
+        [_status_btn setTitle:@"去付款" forState:UIControlStateNormal];
+        _status_btn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+        _status_btn.backgroundColor = [UIColor colorWithRed:0.96 green:0.5 blue:0.4 alpha:1];
+        [self.contentView addSubview:_status_btn];
+
     }
     return self;
 }

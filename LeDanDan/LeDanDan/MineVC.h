@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MineVC : UIViewController
-//- (BOOL)prefersStatusBarHidden NS_AVAILABLE_IOS(7_0);
+@property (nonatomic, assign) BOOL isLogin;
 @end
+

@@ -8,7 +8,8 @@
 
 #import "OrderVC.h"
 #import "OrderTableViewCell.h"
-
+#import "OrderDetailViewController.h"
+#import "MJRefresh.h"
 @interface OrderVC ()<UITableViewDataSource,UITableViewDelegate>
 {
     UILabel *_label;
@@ -37,9 +38,6 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
         
     }
-    
-    
-  
     _dataArr = [NSArray arrayWithObjects:@"大",@"中",@"小", nil];
     //_dataArr = [NSArray arrayWithObjects:nil];
     [self addAllControl];
@@ -102,13 +100,19 @@
 }
 -(void)orderIsNoEmpty
 {
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height - 44 -64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height - 40 -64) style:UITableViewStylePlain];
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
     //_tableView.backgroundColor = [UIColor redColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 马上进入刷新状态
+        [_tableView.mj_header beginRefreshing];
+        
+    }];
     
     [self.view addSubview:_tableView];
 }
@@ -122,6 +126,24 @@
     NSLog(@"%f",_label.frame.origin.x);
     
 }
+-(void)pay : (UIButton *)btn
+{
+    [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[OrderDetailViewController new]] animated:YES completion:nil];
+}
+
+#pragma mark --------tableView ------
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 120;
+}
+
+
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0;
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     NSLog(@"计算分组数");
     return 1;
@@ -144,23 +166,14 @@
         cell = [[OrderTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         
     }
+    [cell.status_btn addTarget:self action:@selector(pay:) forControlEvents:UIControlEventTouchUpInside];
     UIView *backView = [[UIView alloc] initWithFrame:cell.frame];
     cell.selectedBackgroundView = backView;
     cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
     
     return cell;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 110;
-}
 
-
-
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 0;
-}
 
 
 

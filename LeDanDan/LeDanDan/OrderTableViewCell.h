@@ -10,4 +10,14 @@
 
 @interface OrderTableViewCell : UITableViewCell
 
+@property (nonatomic, strong) UIImageView *playImage;
+
+@property (nonatomic, strong) UILabel *playName;
+
+@property (nonatomic, strong) UILabel *price;
+
+@property (nonatomic, strong) UILabel *status;
+
+@property (nonatomic, strong) UIButton *status_btn;
+
 @end

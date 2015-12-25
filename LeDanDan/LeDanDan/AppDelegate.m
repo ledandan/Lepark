@@ -9,6 +9,16 @@
 #import "AppDelegate.h"
 #import "NTViewController.h"
 
+
+#import <ShareSDK/ShareSDK.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/TencentOAuth.h>
+#import "WXApi.h"
+#import "WeiboSDK.h"
+
+#import <QQConnection/QQConnection.h>
+#import <QZoneConnection/QZoneConnection.h>
+
 @interface AppDelegate ()
 
 @end
@@ -17,11 +27,86 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:
+  @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+    NSForegroundColorAttributeName:[UIColor whiteColor]}];
     _viewController=[[NTViewController alloc]init];
     self.window.rootViewController=_viewController;
     [self.window makeKeyAndVisible];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:@"loginSuccess" object:nil];
+    
+    
+    [ShareSDK registerApp:@"cd30e712a4c0"];
+    
+    
+    //微信登陆的时候需要初始化
+    [ShareSDK connectWeChatWithAppId:@"wx4868b35061f87885"
+                           appSecret:@"64020361b8ec4c99936c0e3999a9f249"
+                           wechatCls:[WXApi class]];
+    
+    
+    /**
+     连接QQ应用以使用相关功能，此应用需要引用QQConnection.framework和QQApi.framework库
+     http://mobile.qq.com/api/上注册应用，并将相关信息填写到以下字段
+     **/
+    [ShareSDK connectQQWithQZoneAppKey:@"1103514317"
+                     qqApiInterfaceCls:[QQApiInterface class]
+                       tencentOAuthCls:[TencentOAuth class]];
+    
+    /**
+     QQ第三方登录需要
+     连接QQ空间应用以使用相关功能，此应用需要引用QZoneConnection.framework
+     http://connect.qq.com/intro/login/上申请加入QQ登录，并将相关信息填写到以下字段
+     
+     如果需要实现SSO，需要导入TencentOpenAPI.framework,并引入QQApiInterface.h和TencentOAuth.h，将QQApiInterface和TencentOAuth的类型传入接口
+     **/
+    [ShareSDK connectQZoneWithAppKey:@"1103514317"
+                           appSecret:@"RD482f4q483Kn39q"
+                   qqApiInterfaceCls:[QQApiInterface class]
+                     tencentOAuthCls:[TencentOAuth class]];
+    
+    
+    //    [ShareSDK connectSinaWeiboWithAppKey:@"568898243"
+    //                               appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3"
+    //                             redirectUri:@"http://www.sharesdk.cn"
+    //                             weiboSDKCls:[WeiboSDK class]];
+    
+    //开启QQ空间网页授权开关//注意：以前申请的QQ空间具有网页权限，可以进行网页授权。新申请的QQ空间应用是不具有网页授权权限，只能是SSO授权
+    id<ISSQZoneApp> app =(id<ISSQZoneApp>)[ShareSDK getClientWithType:ShareTypeQQSpace];
+    [app setIsAllowWebAuthorize:YES];
+
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    
+    NSArray *_permissions = [NSArray arrayWithObjects:kOPEN_PERMISSION_GET_INFO, kOPEN_PERMISSION_GET_USER_INFO, kOPEN_PERMISSION_GET_SIMPLE_USER_INFO, nil];
+    // [_tencentOAuth authorize:_permissions inSafari:NO];
+    return [TencentOAuth HandleOpenURL:url];
+    return [ShareSDK handleOpenURL:url wxDelegate:self];
+    
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [ShareSDK handleOpenURL:url sourceApplication:sourceApplication annotation:annotation wxDelegate:self];
+    
+    return [ShareSDK handleOpenURL: url
+                 sourceApplication:sourceApplication
+                        annotation: annotation
+                        wxDelegate: self];
+    return [TencentOAuth HandleOpenURL:url];
+}
+
+-(void)loginSuccess
+{
+    _viewController=[[NTViewController alloc]init];
+    _viewController.selectedIndex = 2;
+    self.window.rootViewController=_viewController;
+    [self.window makeKeyAndVisible];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
