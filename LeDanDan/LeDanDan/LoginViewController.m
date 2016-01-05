@@ -52,6 +52,7 @@
     UIImage *searchimage=[UIImage imageNamed:@"back@2x"];
     UIBarButtonItem *barbtn=[[UIBarButtonItem alloc] initWithImage:searchimage style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.96f green:0.5f blue:0.4f alpha:1];
+    
     self.navigationItem.leftBarButtonItem=barbtn;
 }
 

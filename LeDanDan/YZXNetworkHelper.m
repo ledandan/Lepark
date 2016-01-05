@@ -341,6 +341,86 @@ static YZXNetworkHelper *_instance = nil;
     return task;
 }
 
+
+/**
+ *  上传数据（文本数据/多媒体数据）
+ *
+ *  @param path              上传请求地址
+ *  @param parameters        上传请求参数集，字典
+ *  @param fileURL           上传所带文件地址，URL
+ *  @param progress          进度条，会不断更新，UI需自行刷新显示
+ *  @param isMultipart       是否是多媒体
+ *  @param completionHandler 完成回调方法
+ *
+ *  @return 返回NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *) apiUpload:(NSString *)path
+                          parameters:(NSDictionary *)parameters
+                            fromFile:(NSData *) fileData
+                            progress:(NSProgress * __autoreleasing *)progress
+                         isMultipart:(BOOL) isMultipart
+                   completionHandler:(void (^)(NSURLResponse *response, NSDictionary* resultDictionary, NSError *error))completionHandler{
+    
+    //加载圈
+    [[ObjectCTools shared] addLoading];
+    dispatch_async(dispatch_get_main_queue() , ^{
+        //加载圈
+        _progressHUD = nil;
+        _progressHUD = [MBProgressHUD showHUDAddedTo:[[ObjectCTools shared] getAppDelegate].window animated:YES];
+        _progressHUD.mode = MBProgressHUDModeDeterminate; //饼图
+    });
+    
+    //先检查网络状态
+    if (!_haveNetwork)
+    {
+        //影藏加载圈
+        [[ObjectCTools shared] dissmissLoading];
+        [UIView showAlertView:@"无网络连接" andMessage:@"请检查您的网络设置"];
+        NSError *oneError = [[NSError alloc] init];
+        completionHandler(nil,nil,oneError);
+        return nil;
+    }
+    
+    
+    
+    NSMutableURLRequest *request = [self customInitRequestWithURL:path postParems:parameters picFilePath:nil picFileName:[NSString stringWithFormat:@"%@.jpg", [ObjectCTools shared].generateUuidString] orPicData:fileData];
+    NSURLSessionUploadTask *task = [self._manager uploadTaskWithStreamedRequest:request progress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        [[ObjectCTools shared] dissmissLoading];
+        [self printUploadInfo:response fileURL:path request:request error:error];
+        if (completionHandler) {
+            completionHandler(response,[self resolveResponse:responseObject],error);
+        }
+    }];
+    
+    // 添加一个 KVO 的监听方法
+    [*progress addObserver:self
+                forKeyPath:@"fractionCompleted"
+                   options:NSKeyValueObservingOptionNew
+                   context:NULL];
+    
+    [task resume];
+    return task;
+}
+
+
+//打印上传的输出
+- (void)printUploadInfo:(NSURLResponse *)response fileURL:(NSObject *)fileURL request:(NSMutableURLRequest *)request error:(NSError *)error
+{
+    //Print Error
+    if (error) {
+        NSMutableURLRequest *mRequest = request;
+        AMLogError(@"\nError!!!Request Failure![Upload]: %@ \n %@", mRequest.URL,mRequest.allHTTPHeaderFields);
+        AMLogError(@"\nResponse Headers: %@  \n Error: %@ ",((NSHTTPURLResponse *)response).allHeaderFields,error);
+    }else{
+        //Print Info
+        NSMutableURLRequest *mRequest = request;
+        AMLogVerbose(@"\nRequest[Upload]: %@ \n %@", mRequest.URL,mRequest.allHTTPHeaderFields);
+        NSString *body = [NSString stringWithFormat:@"FilePath: %@",fileURL];
+        AMLogVerbose(@"\nResponse Headers: %@  \n %@ ",((NSHTTPURLResponse *)response).allHeaderFields,body);
+    }
+}
+
+
 /**
  *  put请求（基于指定的URL及参数）
  *

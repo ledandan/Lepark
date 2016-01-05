@@ -5,11 +5,14 @@
 //  Created by yzx on 15/12/16.
 //  Copyright © 2015年 herryhan. All rights reserved.
 //
+#import "YZXNetworkHelper.h"
 
 #import "MyInformationViewController.h"
 #import "ChangeMyNameViewController.h"
 #import "ChangePhoneViewController.h"
-@interface MyInformationViewController ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationBarDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
+#import "MSDatePicker.h"
+#import "ChangePasswordViewController.h"
+@interface MyInformationViewController ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationBarDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,MSDatePickerDelegate>
 {
     NSArray *count;
     UITableView *_tableView;
@@ -20,6 +23,16 @@
     NSString *gender;
     
     UIActionSheet *_genderChoiceAciotnSheet;
+    
+    //生日
+    NSString *_dateString;
+    
+    //点的第几个 cell
+    NSString *index;
+    
+    //孩子数量
+    NSString *numOfChild;
+    
 }
 @end
 
@@ -42,6 +55,7 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
+    
     [self dismissModalViewControllerAnimated:YES];
     self.view.backgroundColor=[UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
     UIImage *searchimage=[UIImage imageNamed:@"back@2x"];
@@ -105,6 +119,62 @@
     [_genderChoiceAciotnSheet showInView:self.view];
 }
 
+-(void)changeBirthday:(int) i
+{
+    NSDate *theDate = [NSDate date];
+    //NSString *birthdayString = [_userInfoDictionary objectForKey:@"birth"];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+    [dateFormatter setTimeZone:timeZone];
+    //theDate = [dateFormatter dateFromString:birthdayString];
+    
+    MSDatePicker *datePicker = [[MSDatePicker alloc] initwithYMDDatePickerDelegate:self withMinimumDate:@"1900-01-01" withMaximumDate:[NSDate date] withNowDate:theDate];
+    [datePicker showInView:self.view];
+
+}
+
+-(void)changeNumOfChild
+{
+    
+}
+
+-(void)setPassword
+{
+    [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[ChangePasswordViewController new]] animated:YES completion:nil];
+}
+
+//上次数据
+-(void)post :(NSString *)str
+{
+    NSDictionary *dic =@{@"userPhone":@"18001670533",@"type":index,@"value":str};
+    
+    
+    [[YZXNetworkHelper shared] apiPost:@"http://120.26.212.55:8080/incidentally/api/userInfoUpdate/getUserInfoUpdate.html" parameters:dic success:^(id success){
+        NSLog(@"%@",index);
+        NSLog(@"%@",success);
+        
+    }failure:^(id error)
+     {
+         NSLog(@"%@",error);
+         
+     }];
+}
+
+#pragma mark ---------------- MSDatePickerDelegate回调 -----------------
+- (void) checkOneDate:(NSDate *)theDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+    [dateFormatter setTimeZone:timeZone];
+    
+    _dateString = [dateFormatter stringFromDate:theDate];
+    [_tableView reloadData];
+    
+    [self post:_dateString];
+}
 
 #pragma mark --------- tableViewdelgate ------------
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -176,14 +246,16 @@
             [cell.contentView addSubview:rightlabel];
             [cell.contentView addSubview:imageView];
             cell.textLabel.text = @"出生日期";
-            rightlabel.text=@"12-05";
+            rightlabel.text= _dateString;
             break;
         case 6:
             [cell.contentView addSubview:rightlabel];
             [cell.contentView addSubview:imageView];
             cell.textLabel.text = @"孩子数量";
-            rightlabel.text =@"2";
+            rightlabel.text =numOfChild;
+            cell.hidden = YES;
             break;
+            
         case 8:
             [cell.contentView addSubview:imageView];
             cell.textLabel.text = @"设置密码";
@@ -205,6 +277,10 @@
     if (indexPath.row ==3 || indexPath.row == 7) {
         return 10;
     }
+    else if (indexPath.row == 6)
+    {
+        return 0;
+    }
     return 60;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -221,6 +297,7 @@
     switch (indexPath.row) {
         case 0:
             //修改头像
+            index = @"1";
             [self takePictureClick];
             break;
         case 1:
@@ -231,22 +308,31 @@
             break;
         case 2:
             //修改性别
+            index = @"3";
             [self changeGender];
             
             break;
         case 4:
             
+            index = @"4";
             [self presentViewController:[[UINavigationController alloc]initWithRootViewController:changePhone] animated:YES completion:nil];
             //修改手机号
             break;
         case 5:
             //修改出生日期
+            index = @"5";
+            [self changeBirthday:indexPath.row];
+            
             break;
         case 6:
+            index = @"6";
             //修改孩子数量
+            [self changeNumOfChild];
             break;
         case 8:
+            index = @"7";
             //设置密码
+            [self setPassword];
             break;
             
         default:
@@ -288,6 +374,9 @@
                 break;
         }
         [_tableView reloadData];
+        
+        //post
+        [self post:gender];
     }
     else
     {
@@ -327,52 +416,58 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     NSLog(@"上传图像....");
     [_headImage setImage:image forState:UIControlStateNormal];
-    NSProgress *progress;
-    //    [[MSNetworkHelper shared] apiUpload:[[ObjectCTools shared] getUrlsFromPlistFile:kUpdate_avatar]
-//                             parameters:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                         [MSNetworkHelper shared]._uid, @"uid",
-//                                         [MSNetworkHelper shared]._token, @"token",
-//                                         nil]
-//                               fromFile:UIImageJPEGRepresentation(image,0.8) progress:&progress
-//                            isMultipart:YES
-//                      completionHandler:^(NSURLResponse *response, NSDictionary* resultDictionary, NSError *error)
-//     {
-//         if (!error)
-//         {
-//             
-//             if ([[resultDictionary objectForKey:@"status"] isEqualToString:@"1"])
-//             {
-//                 NSString *avatarUrlString = [[resultDictionary objectForKey:@"data"] objectForKey:@"avatar"];
-//                 if ([[ObjectCTools shared] refreshTheUserInfoDictionaryWithKey:@"avatar" withValue:avatarUrlString])
-//                 {
-//                     //刷新头像成功
-//                     NSLog(@"清空头像缓存");
-//                     //                     [[SDImageCache sharedImageCache] removeImageForKey:avatarUrlString];
-//                     //                     [[SDImageCache sharedImageCache] removeImageForKey:avatarUrlString fromDisk:YES];
-//                     
-//                     //延迟更新，因为清缓存需要时间
-//                     [self performSelector:@selector(refreshTheHeadImage) withObject:nil afterDelay:0.8];
-//                 }
-//                 
-//                 [[ObjectCTools shared] showAlertViewAndDissmissAutomatic:@"头像更新成功!" andMessage:@"" withDissmissTime:1.0 withDelegate:nil withAction:nil];
-//                 NSLog(@"上传成功，取得头像地址");
-//             }
-//             else
-//             {
-//                 [[ObjectCTools shared] showAlertViewAndDissmissAutomatic:[resultDictionary objectForKey:@"message"] andMessage:@"" withDissmissTime:vAutomaticDissmissAlertViewShowTime withDelegate:nil withAction:nil];
-//             }
-//         }
-//         else
-//         {
-//             NSLog(@"失败:error =  %@", error);
-//             
-//         }
-//     }];
+    
+    CGSize imagesize = image.size;
+    imagesize.height =10;
+    imagesize.width =10;
+    //对图片大小进行压缩--
+    image = [self imageWithImage:image scaledToSize:imagesize];
+    
+    NSData *data;
+    if (UIImagePNGRepresentation(image) == nil) {
+        data = UIImageJPEGRepresentation(image, 0.1);
+    } else {
+        data = UIImagePNGRepresentation(image);
+    }
+    
+    NSDictionary *dic =@{@"userPhone":@"18001670533",@"type":@"1",@"value":data};
+    
+    
+    [[YZXNetworkHelper shared] apiPost:@"http://120.26.212.55:8080/incidentally/api/userInfoUpdate/getUserInfoUpdate.html" parameters:dic success:^(id success){
+        
+        NSLog(@"%@",success);
+    }failure:^(id error)
+     {
+         NSLog(@"%@",error);
+         
+     }];
+    
+    
+    
     [picker dismissViewControllerAnimated:YES completion:^{
         
     }];
     
     
+}
+
+-(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
+{
+    // Create a graphics image context
+    UIGraphicsBeginImageContext(newSize);
+    
+    // Tell the old image to draw in this new context, with the desired
+    // new size
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    
+    // Get the new image from the context
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // End the context
+    UIGraphicsEndImageContext();
+    
+    // Return the new image.
+    return newImage;
 }
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
@@ -392,38 +487,9 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-//- (void)saveImage:(UIImage *)image {
-//    //    NSLog(@"保存头像！");
-//    //    [userPhotoButton setImage:image forState:UIControlStateNormal];
-//    BOOL success;
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    NSError *error;
-//    
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//    NSString *imageFilePath = [documentsDirectory stringByAppendingPathComponent:@"selfPhoto.jpg"];
-//    NSLog(@"imageFile->>%@",imageFilePath);
-//    success = [fileManager fileExistsAtPath:imageFilePath];
-//    if(success) {
-//        success = [fileManager removeItemAtPath:imageFilePath error:&error];
-//    }
-//    //    UIImage *smallImage=[self scaleFromImage:image toSize:CGSizeMake(80.0f, 80.0f)];//将图片尺寸改为80*80
-//    UIImage *smallImage = [self thumbnailWithImageWithoutScale:image size:CGSizeMake(93, 93)];
-//    [UIImageJPEGRepresentation(smallImage, 1.0f) writeToFile:imageFilePath atomically:YES];//写入文件
-//    UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];//读取图片文件
-//    //    [userPhotoButton setImage:selfPhoto forState:UIControlStateNormal];
-//    self.img.image = selfPhoto;
-//}
 
-// 改变图像的尺寸，方便上传服务器
-- (UIImage *) scaleFromImage: (UIImage *) image toSize: (CGSize) size
-{
-    UIGraphicsBeginImageContext(size);
-    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

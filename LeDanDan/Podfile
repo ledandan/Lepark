@@ -5,3 +5,4 @@ pod "SDWebImage"
 pod "JSONModel"
 pod "CMPopTipView"
 pod 'MJRefresh', '~> 3.0.7'
+pod 'EaseMobSDK'

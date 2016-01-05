@@ -338,6 +338,9 @@
 		67B0DC711C1812E200CB5437 /* NoPasteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B0DC701C1812E200CB5437 /* NoPasteTextField.m */; };
 		67B0DC741C18138F00CB5437 /* NSString_extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B0DC731C18138F00CB5437 /* NSString_extra.m */; };
 		67B0DC771C18145A00CB5437 /* UIImage_extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 67B0DC761C18145A00CB5437 /* UIImage_extra.m */; };
+		67E3A2411C3A5AD200A1D409 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E3A2401C3A5AD200A1D409 /* ChangePasswordViewController.m */; };
+		67E3A2971C3BC01000A1D409 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E3A2961C3BC01000A1D409 /* MobileCoreServices.framework */; };
+		67E3A2991C3BC02300A1D409 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E3A2981C3BC02300A1D409 /* CFNetwork.framework */; };
 		DC38B82A1BE9A6C50014D06A /* CollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC38B8281BE9A6C50014D06A /* CollectionTableViewCell.m */; };
 		DC38B82E1BE9B63F0014D06A /* TravleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC38B82D1BE9B63F0014D06A /* TravleVC.m */; };
 		DC38B8321BE9E1040014D06A /* TravleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC38B8301BE9E1040014D06A /* TravleTableViewCell.m */; };
@@ -748,6 +751,10 @@
 		67B0DC731C18138F00CB5437 /* NSString_extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_extra.m; sourceTree = "<group>"; };
 		67B0DC751C18145A00CB5437 /* UIImage_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImage_extra.h; sourceTree = "<group>"; };
 		67B0DC761C18145A00CB5437 /* UIImage_extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImage_extra.m; sourceTree = "<group>"; };
+		67E3A23F1C3A5AD200A1D409 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		67E3A2401C3A5AD200A1D409 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		67E3A2961C3BC01000A1D409 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		67E3A2981C3BC02300A1D409 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9EE1D1AAF45C79352F65B903 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAFC2425F0F37042226A214D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		DC38B8271BE9A6C50014D06A /* CollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionTableViewCell.h; path = LeDanDan/CollectionTableViewCell.h; sourceTree = "<group>"; };
@@ -804,6 +811,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67E3A2991C3BC02300A1D409 /* CFNetwork.framework in Frameworks */,
+				67E3A2971C3BC01000A1D409 /* MobileCoreServices.framework in Frameworks */,
 				677A868F1C200D7500433FC4 /* CoreLocation.framework in Frameworks */,
 				677A86821C1EB2F500433FC4 /* libsqlite3.tbd in Frameworks */,
 				677A86801C1EB2E700433FC4 /* AdSupport.framework in Frameworks */,
@@ -1488,6 +1497,8 @@
 				679E7D471C2B9B8500B010F4 /* ChangeMyNameViewController.m */,
 				672AE8DA1C2BC52400706E5A /* ChangePhoneViewController.h */,
 				672AE8DB1C2BC52400706E5A /* ChangePhoneViewController.m */,
+				67E3A23F1C3A5AD200A1D409 /* ChangePasswordViewController.h */,
+				67E3A2401C3A5AD200A1D409 /* ChangePasswordViewController.m */,
 			);
 			name = Person;
 			sourceTree = "<group>";
@@ -1540,6 +1551,8 @@
 		AEF002AC63E82B75D5A5B1EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67E3A2981C3BC02300A1D409 /* CFNetwork.framework */,
+				67E3A2961C3BC01000A1D409 /* MobileCoreServices.framework */,
 				677A868E1C200D7500433FC4 /* CoreLocation.framework */,
 				677A86811C1EB2F500433FC4 /* libsqlite3.tbd */,
 				677A867F1C1EB2E700433FC4 /* AdSupport.framework */,
@@ -2142,6 +2155,7 @@
 				67B0DC621C17FD2300CB5437 /* YZXNetworkHelper.m in Sources */,
 				DC38B8391BEAF90A0014D06A /* SuggestVC.m in Sources */,
 				67B0DC3B1C1527CE00CB5437 /* ForgetPasswordViewController.m in Sources */,
+				67E3A2411C3A5AD200A1D409 /* ChangePasswordViewController.m in Sources */,
 				DCA558A81BD9C8A5004502C1 /* ViewController.m in Sources */,
 				67B0DC6E1C18124800CB5437 /* ObjectCTools.m in Sources */,
 				DCDB53D71BE6F60000B81460 /* MessageVC.m in Sources */,
@@ -2330,6 +2344,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/ShareSDK/Extend/WeChatSDK",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ledandan.ios1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -2357,6 +2372,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/ShareSDK/Extend/WeChatSDK",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ledandan.ios1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
