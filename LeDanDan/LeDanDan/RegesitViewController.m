@@ -7,7 +7,7 @@
 //
 
 #import "RegesitViewController.h"
-
+//#import "AFHTTPRequestOperationManager.h"
 @interface RegesitViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
     UITextField *_phoneTextField;
@@ -64,6 +64,7 @@
     [regBtn setTitle:@"立即注册" forState: UIControlStateNormal];
     regBtn.backgroundColor = [UIColor colorWithRed:0.96f green:0.5f blue:0.4f alpha:1];
     regBtn.layer.cornerRadius = 5;
+    [regBtn addTarget:self action:@selector(reg) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:regBtn];
 }
 
@@ -77,6 +78,23 @@
 {
     
 }
+
+-(void)reg
+{
+    //{“userPhone”:”123”,” passWord”:”123”，“code”:”123” ，“type”：1，“openId”：“”}
+
+    NSDictionary *dic = @{@"userPhone":_phoneTextField.text,@"passWord":_passwordTextfield.text,@"code":_inviteTextfield.text,@"type":@"1",@"openId":@"1"};
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kRegesit succeed:^(id success){
+        
+        NSLog(@"%@",success);
+        
+    }failed:^(id error)
+     {
+         
+     }];
+}
+
+
 
 //点击获取验证码
 -(void)verPress

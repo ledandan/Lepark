@@ -7,7 +7,7 @@
 //
 
 #import "ChangePasswordViewController.h"
-#import "YZXNetworkHelper.h"
+
 @interface ChangePasswordViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
     UITableView *_tableView;
@@ -81,14 +81,14 @@
         
         NSLog(@"%@",_newPassword.text);
         
-        [[YZXNetworkHelper shared] apiPost:@"http://120.26.212.55:8080/incidentally/api/userInfoUpdate/getUserInfoUpdate.html" parameters:dic success:^(id success){
-            NSLog(@"%@",success);
-            
-        }failure:^(id error)
-         {
-             NSLog(@"%@",error);
-             
-         }];
+//        [[YZXNetworkHelper shared] apiPost:@"http://120.26.212.55:8080/incidentally/api/userInfoUpdate/getUserInfoUpdate.html" parameters:dic success:^(id success){
+//            NSLog(@"%@",success);
+//            
+//        }failure:^(id error)
+//         {
+//             NSLog(@"%@",error);
+//             
+//         }];
 
     }];
 }

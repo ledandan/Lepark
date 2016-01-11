@@ -83,11 +83,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeDanDan/ChangeMyNameViewController.m"
-            timestampString = "473577528.665711"
+            timestampString = "472628936.855041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "-editingRectForBounds:"
             landmarkType = "5">
          </BreakpointContent>
@@ -98,13 +98,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LeDanDan/ChangePasswordViewController.m"
-            timestampString = "473589306.423618"
+            filePath = "LeDanDan/MyInformationViewController.m"
+            timestampString = "474176478.613673"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "-sure"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "-post:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

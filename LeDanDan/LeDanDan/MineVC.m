@@ -99,7 +99,7 @@
 //点击头像
 -(void)headClick
 {
-    if (_isLogin == NO) {
+    if (_isLogin == YES) {
         
         NSLog(@"已经登录");
         [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[MyInformationViewController new]] animated:YES completion:nil];

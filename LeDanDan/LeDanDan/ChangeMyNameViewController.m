@@ -7,7 +7,7 @@
 //
 
 #import "ChangeMyNameViewController.h"
-#import "YZXNetworkHelper.h"
+
 @interface ChangeMyNameViewController ()<UITextFieldDelegate>
 {
     UITextField *_textField;
@@ -21,7 +21,7 @@
     // Do any additional setup after loading the view.
     self.title = @"昵称";
     
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(resetName)];
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(reset)];
     [rightButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                          [UIFont fontWithName:@"Helvetica"size:18],NSFontAttributeName,
                                          [UIColor whiteColor],NSForegroundColorAttributeName,
@@ -72,20 +72,9 @@
 }
 
 //保存
--(void)resetName
+-(void)reset
 {
     
-    NSDictionary *dic =@{@"userPhone":@"18001670539",@"type":@"2",@"value":_textField.text};
-
-    
-    [[YZXNetworkHelper shared] apiPost:@"http://120.26.212.55:8080/incidentally/api/userInfoUpdate/getUserInfoUpdate.html" parameters:dic success:^(id success){
-        
-        NSLog(@"%@",success);
-    }failure:^(id error)
-     {
-         NSLog(@"%@",error);
-         
-     }];
 }
 
 #pragma mark  -------TextFieldDelegate -------- 

@@ -4,27 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AFNetworking.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>CMPopTipView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>JSONModel.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MBProgressHUD.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,17 +27,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>09F7093E546777C2FE26A4B80C4AD488</key>
+		<key>2A458FD6F05FC1F361F3CB0CEDC31C72</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2822A60AAE9F81C0DDCEBCC38D46C77E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3E350F99C38B74D7FAC6580387753D80</key>
+		<key>4742BC99681FD0FF682B60305C384153</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,17 +42,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8DB184586ED6308385CB5B6809BF0B36</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9526788F9978FB3D87387497108FABE5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FEA33E6C995711E185DE52E6CDA5511E</key>
+		<key>FCDB0527CE933935986591D36B865339</key>
 		<dict>
 			<key>primary</key>
 			<true/>

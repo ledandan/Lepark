@@ -74,6 +74,16 @@
     
    
    }
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [self dismissModalViewControllerAnimated:YES];
+//    self.view.backgroundColor=[UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
+//    UIImage *searchimage=[UIImage imageNamed:@"back@2x"];
+//    UIBarButtonItem *barbtn=[[UIBarButtonItem alloc] initWithImage:searchimage style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.96f green:0.5f blue:0.4f alpha:1];
+    //self.navigationItem.leftBarButtonItem=barbtn;
+}
 -(void)config
 {
     
@@ -144,7 +154,7 @@
         case 1:
             NSLog(@"长途旅行");
             //结束刷新
-            [self.tableView.mj_header endRefreshing];
+            //[self.tableView.mj_header endRefreshing];
             break;
         case 2:
             NSLog(@"学院");
@@ -179,13 +189,13 @@
     }
      //[_tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
     
-    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        // 马上进入刷新状态
-        
-    [self.tableView.mj_header beginRefreshing];
-       
-        
-    }];
+//    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        // 马上进入刷新状态
+//        
+//    [self.tableView.mj_header beginRefreshing];
+//       
+//        
+//    }];
 
     [self.view addSubview:_tableView];
     

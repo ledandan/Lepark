@@ -5,7 +5,6 @@
 //  Created by yzx on 15/12/16.
 //  Copyright © 2015年 herryhan. All rights reserved.
 //
-#import "YZXNetworkHelper.h"
 
 #import "MyInformationViewController.h"
 #import "ChangeMyNameViewController.h"
@@ -85,10 +84,10 @@
     [self.view addSubview:_tableView];
     
     //头像
-   // _headImage = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    // _headImage = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     _headImage = [UIButton buttonWithType:UIButtonTypeCustom];
     _headImage.frame = CGRectMake(0, 0, 30, 30);
-   // _headImage.image = [UIImage imageNamed:@"userhead@2x"];
+    // _headImage.image = [UIImage imageNamed:@"userhead@2x"];
     [_headImage setImage:[UIImage imageNamed:@"userhead@2x"] forState:UIControlStateNormal];
     _headImage.x = kScreenWidth - 60-[UIImage imageNamed:@"getin@2x"].size.width;
     _headImage.layer.cornerRadius = 15;
@@ -132,7 +131,7 @@
     
     MSDatePicker *datePicker = [[MSDatePicker alloc] initwithYMDDatePickerDelegate:self withMinimumDate:@"1900-01-01" withMaximumDate:[NSDate date] withNowDate:theDate];
     [datePicker showInView:self.view];
-
+    
 }
 
 -(void)changeNumOfChild
@@ -151,15 +150,11 @@
     NSDictionary *dic =@{@"userPhone":@"18001670533",@"type":index,@"value":str};
     
     
-    [[YZXNetworkHelper shared] apiPost:@"http://120.26.212.55:8080/incidentally/api/userInfoUpdate/getUserInfoUpdate.html" parameters:dic success:^(id success){
-        NSLog(@"%@",index);
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:@"http://120.26.212.55:8080/incidentally/api/userInfoUpdate/getUserInfoUpdate.html" succeed:^(id success){
         NSLog(@"%@",success);
+    }failed:^(id error){
         
-    }failure:^(id error)
-     {
-         NSLog(@"%@",error);
-         
-     }];
+    }];
 }
 
 #pragma mark ---------------- MSDatePickerDelegate回调 -----------------
@@ -205,9 +200,9 @@
     imageView.center = CGPointMake(cell.frame.size.width - cell.frame.size.height/2 +40, 30);
     imageView.frame= CGRectMake(self.view.frame.size.width - 50, imageView.frame.origin.y, imageView.frame.size.width, imageView.frame.size.height);
     [cell setLayoutMargins:UIEdgeInsetsZero];
-
     
-   
+    
+    
     
     
     //右边内容
@@ -380,32 +375,32 @@
     }
     else
     {
-    NSLog(@"buttonIndex = [%d]",buttonIndex);
-    switch (buttonIndex) {
-        case 0://照相机
-        {
-            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-            imagePicker.allowsEditing = YES;
-            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-
-            //            [self presentModalViewController:imagePicker animated:YES];
-            [self presentViewController:imagePicker animated:YES completion:nil];
+        NSLog(@"buttonIndex = [%d]",buttonIndex);
+        switch (buttonIndex) {
+            case 0://照相机
+            {
+                UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+                imagePicker.allowsEditing = YES;
+                imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                
+                //            [self presentModalViewController:imagePicker animated:YES];
+                [self presentViewController:imagePicker animated:YES completion:nil];
+            }
+                break;
+            case 1://本地相册
+            {
+                UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+                imagePicker.allowsEditing = YES;
+                imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                imagePicker.delegate = self;
+                imagePicker.navigationBar.barTintColor = [UIColor colorWithRed:0.96f green:0.5f blue:0.4f alpha:1];
+                //            [self presentModalViewController:imagePicker animated:YES];
+                [self presentViewController:imagePicker animated:YES completion:nil];
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        case 1://本地相册
-        {
-            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-            imagePicker.allowsEditing = YES;
-            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            imagePicker.delegate = self;
-            imagePicker.navigationBar.barTintColor = [UIColor colorWithRed:0.96f green:0.5f blue:0.4f alpha:1];
-            //            [self presentModalViewController:imagePicker animated:YES];
-            [self presentViewController:imagePicker animated:YES completion:nil];
-        }
-            break;
-        default:
-            break;
-    }
     }
 }
 
@@ -433,14 +428,14 @@
     NSDictionary *dic =@{@"userPhone":@"18001670533",@"type":@"1",@"value":data};
     
     
-    [[YZXNetworkHelper shared] apiPost:@"http://120.26.212.55:8080/incidentally/api/userInfoUpdate/getUserInfoUpdate.html" parameters:dic success:^(id success){
-        
-        NSLog(@"%@",success);
-    }failure:^(id error)
-     {
-         NSLog(@"%@",error);
-         
-     }];
+//    [[YZXNetworkHelper shared] apiPost:@"http://120.26.212.55:8080/incidentally/api/userInfoUpdate/getUserInfoUpdate.html" parameters:dic success:^(id success){
+//        
+//        NSLog(@"%@",success);
+//    }failure:^(id error)
+//     {
+//         NSLog(@"%@",error);
+//         
+//     }];
     
     
     
@@ -497,13 +492,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

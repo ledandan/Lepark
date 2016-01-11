@@ -108,11 +108,11 @@
     //_tableView.backgroundColor = [UIColor redColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        // 马上进入刷新状态
-        [_tableView.mj_header beginRefreshing];
-        
-    }];
+//    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        // 马上进入刷新状态
+//        [_tableView.mj_header beginRefreshing];
+//        
+//    }];
     
     [self.view addSubview:_tableView];
 }

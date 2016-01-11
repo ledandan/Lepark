@@ -35,7 +35,6 @@
 
 #import "MSDatePicker.h"
 #import <QuartzCore/QuartzCore.h>
-#import "ObjectCTools.h"
 @interface MSDatePicker()<UIScrollViewDelegate>
 {
 }

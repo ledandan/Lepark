@@ -48,11 +48,11 @@
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
-    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        // 马上进入刷新状态
-        [_tableView.mj_header beginRefreshing];
-        
-    }];
+//    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        // 马上进入刷新状态
+//        [_tableView.mj_header beginRefreshing];
+//        
+//    }];
     [self.view addSubview:_tableView];
 }
 
@@ -109,7 +109,7 @@
 {
     NSLog(@"点击 Table");
     
-    [_tableView.mj_header endRefreshing];
+   // [_tableView.mj_header endRefreshing];
     
 }
 
