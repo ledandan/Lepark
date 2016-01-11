@@ -10,7 +10,7 @@
 #import "RegesitViewController.h"
 #import "ForgetPasswordViewController.h"
 #import "MBProgressHUD.h"
-
+#import "MineVC.h"
 
 #import <ShareSDK/ShareSDK.h>
 @interface LoginViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
@@ -81,7 +81,7 @@
     [loginBtn setTitle:@"登录" forState: UIControlStateNormal];
     loginBtn.backgroundColor = [UIColor colorWithRed:0.96f green:0.5f blue:0.4f alpha:1];
     loginBtn.layer.cornerRadius = 5;
-    [loginBtn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    [loginBtn addTarget:self action:@selector(loginlogin) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginBtn];
     
     //第三方登录
@@ -127,9 +127,23 @@
 }
 
 //登录
--(void)login
+-(void)loginlogin
 {
-    
+   // { userPhone:”123”, passWord:”132”}
+    NSDictionary *dic = @{@"userPhone":_phoneTextField.text,@"passWord":_passwordTextfield.text,@"type":@"1",@"opened":@""};
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kLogin succeed:^(id success){
+        
+        [[YZXNetworking shared] saveLoginSuccessUserInfo:success];
+        NSLog(@"%@",[[success objectForKey:@"result"] objectForKey:@"id"]);
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"islogin" object:nil];
+        }];
+        
+    }failed:^(id error)
+     {
+         NSLog(@"%@",error);
+     }];
     
 }
 

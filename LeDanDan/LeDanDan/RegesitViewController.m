@@ -76,7 +76,7 @@
 
 -(void)login
 {
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)reg

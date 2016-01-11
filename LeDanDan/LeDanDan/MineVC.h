@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MineVC : UIViewController
+
 @property (nonatomic, assign) BOOL isLogin;
 @end
 

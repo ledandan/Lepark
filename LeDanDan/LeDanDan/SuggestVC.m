@@ -10,7 +10,9 @@
 #define kBGColor   [UIColor colorWithRed:0.96 green:0.5 blue:0.4 alpha:1];
 @interface SuggestVC ()
 {
-      UILabel *pLabel;
+    UILabel *pLabel;
+    UITextField *cellnumberTV;
+    UITextView *suggestTV;
 }
 
 @end
@@ -41,7 +43,7 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars = NO;
     
-    UITextView *suggestTV=[[UITextView alloc]initWithFrame:CGRectMake(0, 15, self.view.frame.size.width, 120)];
+    suggestTV=[[UITextView alloc]initWithFrame:CGRectMake(0, 15, self.view.frame.size.width, 120)];
     // suggestTV.backgroundColor=[UIColor redColor];
     suggestTV.backgroundColor=[UIColor whiteColor];
     suggestTV.font = [UIFont systemFontOfSize:14];
@@ -57,7 +59,7 @@
     pLabel.textColor = [UIColor lightGrayColor];
     [suggestTV addSubview:pLabel];
     
-    UITextField *cellnumberTV=[[UITextField alloc]initWithFrame:CGRectMake(0, 150, self.view.frame.size.width, 40)];
+    cellnumberTV=[[UITextField alloc]initWithFrame:CGRectMake(0, 150, self.view.frame.size.width, 40)];
     cellnumberTV.backgroundColor=[UIColor whiteColor];
     cellnumberTV.placeholder=@"  请填写您的手机号码,方便我们回复您";
     cellnumberTV.font=[UIFont systemFontOfSize:14];
@@ -65,6 +67,17 @@
     [self.view addSubview:cellnumberTV];
    
     
+}
+
+-(void)submit
+{
+    //{“phone”:”1”,” content”:”asdfasdf” }
+    NSDictionary *dic = @{@"phone":cellnumberTV.text,@"content":suggestTV.text};
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kSuggest succeed:^(id success){
+        NSLog(@"%@",success);
+    }failed:^(id error){
+        
+    }];
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {

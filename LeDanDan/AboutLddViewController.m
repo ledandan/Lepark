@@ -9,6 +9,13 @@
 #import "AboutLddViewController.h"
 
 @interface AboutLddViewController ()
+{
+    NSString *aboutMe;  //主题内容
+    NSString *logo;   //图标url
+    NSString *aboutV;  //版本
+    NSString *aboutG;  //公司名称
+    NSString *aboutX;   //许可证
+}
 
 @end
 
@@ -18,8 +25,29 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"关于";
-    [self addControl];
+    [self addData];
     
+    
+}
+
+
+-(void)addData
+{
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:nil withurl:kAbout succeed:^(id success){
+        
+        NSLog(@"%@",success);
+        
+        aboutMe = [[success objectForKey:@"result"] objectForKey:@"aboutMe"];
+        logo = [[success objectForKey:@"result"] objectForKey:@"logo"];
+        aboutV = [[success objectForKey:@"result"] objectForKey:@"aboutV"];
+        aboutG = [[success objectForKey:@"result"] objectForKey:@"aboutG"];
+        aboutX = [[success objectForKey:@"result"] objectForKey:@"aboutX"];
+        
+        [self addControl];
+    }failed:^(id error)
+     {
+         
+     }];
 }
 
 -(void)addControl
@@ -28,14 +56,15 @@
     UIImageView *imageView = [[UIImageView alloc]init];
     imageView.frame = CGRectMake(0, 120, 70, 70);
     imageView.centerX = kScreenWidth/2;
-    imageView.image = [UIImage imageNamed:@"logo@2x"];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:logo]];
+    NSLog(@"%@",[NSURL URLWithString:logo]);
     [self.view addSubview:imageView];
     
     NSString *Version =  [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     // 版本号
     UILabel *label = [[UILabel alloc]init];
     label.frame= CGRectMake(0, imageView.bottom +8, 150, 20);
-    label.text = [NSString stringWithFormat:@"乐蛋蛋 V%@",Version];
+    label.text = [NSString stringWithFormat:@"乐蛋蛋 V%@",aboutV];
     label.textColor = [UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1];
     label.centerX = kScreenWidth/2;
     label.font = [UIFont systemFontOfSize:19];
@@ -51,7 +80,7 @@
     
     NSString *labelText = @"乐蛋蛋是一款亲子活动类软件,旨在帮助家长孩子找到有趣、好玩、合适、丰富多彩的活动，让孩子家长体验乐在其中。";
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:aboutMe];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     
     [paragraphStyle setLineSpacing:10];//调整行间距
@@ -64,7 +93,7 @@
     //公司
     UILabel *coLabel = [[UILabel alloc]init];
     coLabel.frame = CGRectMake(0, kScreenHeight - 80, kScreenWidth, 20);
-    coLabel.text = @"上海乐蛋蛋文化传播有限公司";
+    coLabel.text = aboutG;
     coLabel.centerX = kScreenWidth/2;
     coLabel.textAlignment = UITextAlignmentCenter;
     coLabel.textColor = [UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1];
@@ -74,7 +103,7 @@
     //版权
     UILabel *copyRight = [[UILabel alloc]init];
     copyRight.frame = CGRectMake(0, coLabel.bottom +3, kScreenWidth, 20);
-    copyRight.text = @"ⓒ Copyright 2015";
+    copyRight.text = aboutX;
     copyRight.textAlignment = UITextAlignmentCenter;
     copyRight.font = [UIFont systemFontOfSize:15];
     copyRight.textColor =[UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1];

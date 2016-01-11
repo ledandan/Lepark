@@ -20,7 +20,14 @@
     UITableView *_tableView;
     NSArray *_titleArray;
     
+    NSDictionary *_userInfoDictionary;
     
+    NSString *_status;  //身份是否验证
+    NSString *_id;     //用户 id
+    NSString *_phone;   //用户手机
+    NSString *_invitationCode;  //邀请码
+    NSString *_lddNo;  //乐蛋蛋 id
+    NSString *_logo;   //用户头像
 }
 
 @end
@@ -29,15 +36,56 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //isLogin = NO;
+    
     //
     [self.navigationController setNavigationBarHidden:YES animated:YES];
    
     _titleArray=[NSArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10", nil];
    
-    [self createTB];
+    
+    
+    
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(l) name:@"islogin" object:nil];
+    
+    _userInfoDictionary = nil;
+    _userInfoDictionary = (NSDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:@"kLastLoginUserInfo"];
+    if (_userInfoDictionary != nil) {
+        _isLogin = YES;
+    }
+    
+    [self addAllData];
+    
+    [self createTB];
+    
+}
+
+
+-(void)addAllData
+{
+    _phone = [_userInfoDictionary objectForKey:@"phone"];
+}
+
+//退出登录
+
+-(void)logout
+{
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    
+    [defaults removeObjectForKey:@"kLastLoginUserInfo"];
+    
+    [defaults synchronize];
+    
+    _phone = nil;
+    
+    _isLogin = NO;
+    [self.view removeAllSubviews];
+    
+    [self createTB];
+}
 -(void)createTB
 {
     
@@ -78,7 +126,14 @@
     nameLabel.frame = CGRectMake(0, 0, 200, 20);
     nameLabel.centerX = imageview.centerX;
     nameLabel.y = iconImage.bottom +10;
-    nameLabel.text = @"未登录,点击头像登录";
+    
+    if (_phone == nil) {
+        nameLabel.text = @"未登录,点击头像登录";
+    }
+    else
+    {
+        nameLabel.text = _phone;
+    }
     nameLabel.font = [UIFont boldSystemFontOfSize:15];
     nameLabel.textAlignment = 1;
     nameLabel.textColor = [UIColor whiteColor];
@@ -321,6 +376,8 @@ else
             break;
             //退出
             case 8:
+            
+            [self logout];
             
             break;
         default:

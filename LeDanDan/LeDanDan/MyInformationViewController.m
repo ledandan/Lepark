@@ -32,6 +32,16 @@
     //孩子数量
     NSString *numOfChild;
     
+    NSDictionary *_userInfoDictionary;
+    
+    NSString *_status;  //身份是否验证
+    NSString *_id;     //用户 id
+    NSString *_phone;   //用户手机
+    NSString *_invitationCode;  //邀请码
+    NSString *_lddNo;  //乐蛋蛋 id
+    NSString *_logo;   //用户头像
+
+    
 }
 @end
 
@@ -44,10 +54,13 @@
     if (gender == nil) {
         gender = @"男";
     }
+    
+    
     count = [NSArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"",@"",@"", nil];
     
-    [self AddJson];
-    [self addControl];
+    [self addData];
+    
+    [self addController];
     
     
 }
@@ -62,8 +75,22 @@
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.96f green:0.5f blue:0.4f alpha:1];
     self.navigationItem.leftBarButtonItem=barbtn;
     
+    
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(l) name:@"islogin" object:nil];
+    
+    _userInfoDictionary = nil;
+    _userInfoDictionary = (NSDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:@"kLastLoginUserInfo"];
+    if (_userInfoDictionary != nil) {
+        
+    }
     [super viewWillAppear:animated];
     //[selectedViewController viewWillAppear:animated];
+}
+
+
+-(void)addData
+{
+
 }
 
 -(void)back
@@ -71,11 +98,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)AddJson
-{
-    name = @"小马哥";
-}
--(void)addControl
+
+-(void)addController
 {
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
@@ -147,12 +171,16 @@
 //上次数据
 -(void)post :(NSString *)str
 {
-    NSDictionary *dic =@{@"userPhone":@"18001670533",@"type":index,@"value":str};
+    NSDictionary *dic =@{@"userPhone":@"186",@"type":index,@"value":str};
     
+    NSLog(@"%@ , %@",index,str);
     
     [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:@"http://120.26.212.55:8080/incidentally/api/userInfoUpdate/getUserInfoUpdate.html" succeed:^(id success){
+        
         NSLog(@"%@",success);
+        
     }failed:^(id error){
+        
         
     }];
 }

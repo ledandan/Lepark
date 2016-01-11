@@ -77,18 +77,27 @@
 {
     [self dismissViewControllerAnimated:YES completion:^
     {
-        NSDictionary *dic =@{@"userPhone":@"18001670533",@"type":@"7",@"value":_newPassword.text};
+        NSString *curPassword = [[YZXNetworking shared] md5:_currentPassword.text];
+        
+        NSString *newPassword = [[YZXNetworking shared] md5:_newPassword.text];
+
+        //格式{ userPhone:”123”,type:”1”,value:”123”}
+        
+        NSString *password = [NSString stringWithFormat:@"%@,%@",_currentPassword.text,_newPassword.text];
+        NSLog(@"password :%@",password);
+        
+        NSDictionary *dic =@{@"userPhone":@"186",@"type":@"7",@"value":password};
         
         NSLog(@"%@",_newPassword.text);
         
-//        [[YZXNetworkHelper shared] apiPost:@"http://120.26.212.55:8080/incidentally/api/userInfoUpdate/getUserInfoUpdate.html" parameters:dic success:^(id success){
-//            NSLog(@"%@",success);
-//            
-//        }failure:^(id error)
-//         {
-//             NSLog(@"%@",error);
-//             
-//         }];
+        [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kAlter succeed:^(id success){
+            
+            NSLog(@" success --%@",success);
+            
+        }failed:^(id error)
+         {
+             
+         }];
 
     }];
 }
