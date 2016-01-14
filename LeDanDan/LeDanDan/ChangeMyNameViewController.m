@@ -58,7 +58,11 @@
     _textField.delegate =self;
     _textField.clearsOnBeginEditing = YES;
     _textField.clearButtonMode = UITextFieldViewModeAlways;
+    if (_name == nil) {
+        _textField.placeholder =[NSString stringWithFormat:@""];
+    }else{
     _textField.placeholder =[NSString stringWithFormat:@"   %@",_name];
+    }
     _textField.backgroundColor = [UIColor whiteColor];
     _textField.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _textField.layer.borderWidth = 0.5;

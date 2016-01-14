@@ -17,6 +17,8 @@
     
     int secondsCountDown; //倒计时总时长
     NSTimer *countDownTimer;
+    
+    NSString *_codeStr;
 
 }
 @end
@@ -138,6 +140,19 @@
 //点击获取验证码
 -(void)verPress
 {
+    
+    NSDictionary *dic = @{@"userPhone":_phoneTextField.text};
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kSendMSN succeed:^(id success){
+        
+        NSLog(@"%@",success);
+        _codeStr = [success objectForKey:@"result"];
+        
+        
+    }failed:^(id error)
+     {
+         
+         NSLog(@"%@",error);
+     }];
     //设置倒计时总时长
     secondsCountDown = 60;//60秒倒计时
     //开始倒计时

@@ -39,7 +39,28 @@
         
     }
     self.navigationController.navigationBar.translucent=NO;
+    
+    [self loadData];
     [self collectTB];
+}
+
+-(void)loadData
+{
+    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults]objectForKey:kLastLoginUserInfo];
+    
+    NSString *ID =[NSString stringWithFormat:@"%d",(int)[userDic objectForKey:@"id"]];
+    NSDictionary *dic = @{@"userId":ID};
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kMyCollection succeed:^(id success)
+     {
+         
+         NSLog(@"%@",[success objectForKey:@"result"]);
+         
+     }failed:^(id error)
+     {
+         
+         NSLog(@"%@",error);
+         
+     }];
 }
 -(void)collectTB
 {

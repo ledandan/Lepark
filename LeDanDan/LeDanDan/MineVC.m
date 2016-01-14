@@ -14,7 +14,7 @@
 #import "LoginViewController.h"
 #import "AboutLddViewController.h"
 #import "MyInformationViewController.h"
-
+#import "InviteForGiftViewController.h"
 @interface MineVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *_tableView;
@@ -40,11 +40,8 @@
     //
     [self.navigationController setNavigationBarHidden:YES animated:YES];
    
-    _titleArray=[NSArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10", nil];
-   
-    
-    
-    
+    _titleArray=[NSArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",nil];
+
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -52,7 +49,7 @@
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(l) name:@"islogin" object:nil];
     
     _userInfoDictionary = nil;
-    _userInfoDictionary = (NSDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:@"kLastLoginUserInfo"];
+    _userInfoDictionary = (NSDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:kLastLoginUserInfo];
     if (_userInfoDictionary != nil) {
         _isLogin = YES;
     }
@@ -75,7 +72,7 @@
 {
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     
-    [defaults removeObjectForKey:@"kLastLoginUserInfo"];
+    [defaults removeObjectForKey:kLastLoginUserInfo];
     
     [defaults synchronize];
     
@@ -93,7 +90,7 @@
     UIView *view=[[UIImageView alloc]initWithFrame:CGRectMake(0,0, self.view.frame.size.width, 180)];
     UIImageView *imageview= [[UIImageView alloc]init];
     imageview.frame = view.frame;
-    imageview.image = [UIImage imageNamed:@"bg@2x"];
+    imageview.image = [UIImage imageNamed:@"Minebg@2x"];
     //imageview.alpha = 0.5;
     [self.view addSubview:view];
     [view addSubview:imageview];
@@ -109,7 +106,13 @@
     //头像
     UIImageView *iconImage= [[UIImageView alloc]init];
     iconImage.frame = CGRectMake(0, 0, 60, 60);
-    iconImage.image = [UIImage imageNamed:@"userhead@2x"];
+    if (!_userInfoDictionary) {
+         iconImage.image = [UIImage imageNamed:@"userhead@2x"];
+    }
+    else
+    {
+        [iconImage sd_setImageWithURL:[NSURL URLWithString:[_userInfoDictionary objectForKey:@"logo"]]];
+    }
     iconImage.centerX = view.centerX;
     iconImage.centerY = view.centerY;
     iconImage.layer.cornerRadius = iconImage.width/2;
@@ -187,7 +190,7 @@
     UITableViewCell *cell= [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     
     
-    if (indexPath.row == 3|| indexPath.row == 7|| indexPath.row == 9) {
+    if (indexPath.row == 3|| indexPath.row == 7) {
         cell.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
         cell.userInteractionEnabled = NO;
     }
@@ -253,7 +256,7 @@ else
             label.center = CGPointMake(label.center.x, 25);
             break;
             
-            case 5:
+            case 8:
             [cell.contentView addSubview:imageView];
             imageView.center = CGPointMake(30, 25);
             imageView.bounds =CGRectMake(0, 0, 25, 25);
@@ -277,7 +280,19 @@ else
             label.center = CGPointMake(label.center.x, 25);
             break;
             
-            case 8:
+            case 5:
+            [cell.contentView addSubview:imageView];
+            imageView.center = CGPointMake(30, 25);
+            imageView.bounds =CGRectMake(0, 0, 25, 25);
+            imageView.image = [UIImage imageNamed:@"exit@2x"];
+            
+            [cell.contentView addSubview:label];
+            label.frame = CGRectMake(imageView.frame.origin.x + imageView.frame.size.width +10, 10, 100, 25);
+            label.text = @"邀请有礼";
+            label.center = CGPointMake(label.center.x, 25);
+            break;
+            
+        case 9:
             [cell.contentView addSubview:imageView];
             imageView.center = CGPointMake(30, 25);
             imageView.bounds =CGRectMake(0, 0, 25, 25);
@@ -286,6 +301,7 @@ else
             [cell.contentView addSubview:label];
             label.frame = CGRectMake(imageView.frame.origin.x + imageView.frame.size.width +10, 10, 100, 25);
             label.text = @"退出";
+            cell.contentView.backgroundColor = [UIColor whiteColor];
             label.center = CGPointMake(label.center.x, 25);
             break;
             
@@ -318,7 +334,7 @@ else
         
     }
     if (indexPath.row==9) {
-        return 80
+        return 47
         ;
     }
     
@@ -327,6 +343,9 @@ else
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSDictionary *userDic = [[NSUserDefaults standardUserDefaults] objectForKey:kLastLoginUserInfo];
+    
+    NSLog(@"%@",userDic);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         //我的订单
@@ -339,27 +358,41 @@ else
             break;
         //我的收藏
             case 1:
-            if (YES) {
+            
+            if (userDic) {
                 UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:[CollectionVC new]];
                 [self presentViewController:nav animated:YES completion:nil];
+            }
+            else{
+                [[YZXNetworking shared] showHint:@"您还未登录"];
             }
             break;
         //优惠券
             case 2:
             
             break;
+        //邀请有礼
+        case 5:
+            NSLog(@"213123");
+            if (YES) {
+                UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:[InviteForGiftViewController new]];
+                [self presentViewController:nav animated:YES completion:nil];
+
+            }
+            
+        break;
             
         //出行人
-            case 4:
+        case 4:
             if (YES) {
                 
                 UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:[TravleVC new]];
                 [self presentViewController:nav animated:YES completion:nil];
             }
           
-            break;
+        break;
         //意见反馈
-            case 5:
+        case 8:
             if (YES) {
                 UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:[SuggestVC new]];
                 [self presentViewController:nav animated:YES completion:nil];
@@ -375,11 +408,10 @@ else
             }
             break;
             //退出
-            case 8:
+         case 9:
             
             [self logout];
-            
-            break;
+        break;
         default:
             break;
     }

@@ -15,6 +15,7 @@
 #define kBGColor   [UIColor colorWithRed:0.06 green:0.73 blue:0.46 alpha:1];
 #define kViewBGColor [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
 
+#define kLastLoginUserInfo @"kLastLoginUserInfo"
 
 #pragma mark ---------------- 屏幕适配 ------------
 #define kIOSVersions [[[UIDevice currentDevice] systemVersion] floatValue] //获得iOS版本

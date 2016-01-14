@@ -18,6 +18,8 @@
     int secondsCountDown; //倒计时总时长
     NSTimer *countDownTimer;
     
+    //验证码
+    NSString *_codeStr;
   
 }
 @end
@@ -79,7 +81,20 @@
 //下一步
 -(void)nextStep
 {
+    
+//    NSLog(@"%@%@",_codeStr,_passwordTextfield.text);
+//    if ([_codeStr isEqualToString:_passwordTextfield.text]) {
+//        
+//         [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[FinishForgetPasswordViewController new]] animated:YES completion:nil];
+//    }
+//    else{
+//        
+//        [[YZXNetworking shared] showHint:@"验证码不正确"];
+//        
+//    }
+    
     [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[FinishForgetPasswordViewController new]] animated:YES completion:nil];
+   
 }
 
 #pragma mark -----------tableView delegate ------------
@@ -121,8 +136,6 @@
         _passwordTextfield.placeholder = @"请输入验证码";
         _passwordTextfield.delegate =self;
         [cell.contentView addSubview:_passwordTextfield];
-        
-        
         _verBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _verBtn.frame = CGRectMake(kScreenWidth - 100, 10, 85, 30);
         [_verBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
@@ -150,6 +163,17 @@
 //点击获取验证码
 -(void)verPress
 {
+    NSDictionary *dic = @{@"userPhone":_phoneTextField.text};
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kSendMSN succeed:^(id success){
+        
+        NSLog(@"%@",success);
+        _codeStr = [success objectForKey:@"result"];
+        
+    }failed:^(id error)
+     {
+         
+         NSLog(@"%@",error);
+     }];
     //设置倒计时总时长
     secondsCountDown = 60;//60秒倒计时
     //开始倒计时

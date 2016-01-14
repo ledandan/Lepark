@@ -20,6 +20,9 @@
     int secondsCountDown; //倒计时总时长
     NSTimer *countDownTimer;
     UITableView *_tableView;
+    
+    //验证码
+    NSString *_codeStr;
 }
 @end
 
@@ -83,15 +86,57 @@
 {
     //{“userPhone”:”123”,” passWord”:”123”，“code”:”123” ，“type”：1，“openId”：“”}
 
-    NSDictionary *dic = @{@"userPhone":_phoneTextField.text,@"passWord":_passwordTextfield.text,@"code":_inviteTextfield.text,@"type":@"1",@"openId":@"1"};
-    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kRegesit succeed:^(id success){
+    if ([self valiMobile:_phoneTextField.text] == nil) {
+
+        if (_passwordTextfield.text.length < 6) {
+            
+            [[YZXNetworking shared] showHint:@"密码至少6位"];
+            
+        }
+        else
+        {
+            if (_codeStr == nil) {
+                [[YZXNetworking shared] showHint:@"请获取验证码"];
+            }
+            else
+            {
+                if (![_codeStr isEqualToString:_verCodeTextfield.text]) {
+                    NSLog(@"_codeStr :%@ _verCodeTextfield %@",_codeStr,_verCodeTextfield.text);
+                    [[YZXNetworking shared] showHint:@"请填写正确的验证码"];
+                }
+                else
+                {
+                    //加密
+                    NSString *md5Password = [[YZXNetworking shared]md5:_passwordTextfield.text];
+                    
+                    NSDictionary *dic = @{@"userPhone":_phoneTextField.text,@"passWord":md5Password,@"code":_inviteTextfield.text,@"type":@"1",@"openId":@"1"};
+                    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kRegesit succeed:^(id success){
+                        
+                        NSLog(@"%@",success);
+                        int status = (int)[success objectForKey:@"status"];
+                        if (status == 200) {
+                            [[YZXNetworking shared] showHint:[success objectForKey:@"message"]];
+                        }
+                        else
+                        {
+                            [[YZXNetworking shared] showHint:[success objectForKey:@"message"]];
+                            
+                        }
+                        
+                    }failed:^(id error)
+                     {
+                         
+                     }];
+                }
+            }
+
+        }
         
-        NSLog(@"%@",success);
-        
-    }failed:^(id error)
-     {
-         
-     }];
+    }
+   
+    
+    
+    
 }
 
 
@@ -99,6 +144,17 @@
 //点击获取验证码
 -(void)verPress
 {
+    NSDictionary *dic = @{@"userPhone":_phoneTextField.text};
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kSendMSN succeed:^(id success){
+        
+        NSLog(@"%@",success);
+        _codeStr = [success objectForKey:@"result"];
+        
+    }failed:^(id error)
+     {
+         
+         NSLog(@"%@",error);
+     }];
     //设置倒计时总时长
     secondsCountDown = 60;//60秒倒计时
     //开始倒计时
@@ -127,6 +183,42 @@
     }
 }
 
+
+- (NSString *)valiMobile:(NSString *)mobile{
+    if (mobile.length < 11)
+    {
+        [[YZXNetworking shared] showHint:@"手机号长度只能是11位"];
+        return @"手机号长度只能是11位";
+    }else{
+        /**
+         * 移动号段正则表达式
+         */
+        NSString *CM_NUM = @"^((13[4-9])|(147)|(15[0-2,7-9])|(178)|(18[2-4,7-8]))\\d{8}|(1705)\\d{7}$";
+        /**
+         * 联通号段正则表达式
+         */
+        NSString *CU_NUM = @"^((13[0-2])|(145)|(15[5-6])|(176)|(18[5,6]))\\d{8}|(1709)\\d{7}$";
+        /**
+         * 电信号段正则表达式
+         */
+        NSString *CT_NUM = @"^((133)|(153)|(177)|(18[0,1,9]))\\d{8}$";
+        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM_NUM];
+        BOOL isMatch1 = [pred1 evaluateWithObject:mobile];
+        NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU_NUM];
+        BOOL isMatch2 = [pred2 evaluateWithObject:mobile];
+        NSPredicate *pred3 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT_NUM];
+        BOOL isMatch3 = [pred3 evaluateWithObject:mobile];
+        
+        if (isMatch1 || isMatch2 || isMatch3) {
+            return nil;
+        }else{
+            
+            [[YZXNetworking shared] showHint:@"请输入正确的电话号码"];
+            return @"请输入正确的电话号码";
+        }
+    }
+    return nil;
+}
 
 #pragma mark -----------tableView delegate ------------
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

@@ -79,7 +79,7 @@
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(l) name:@"islogin" object:nil];
     
     _userInfoDictionary = nil;
-    _userInfoDictionary = (NSDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:@"kLastLoginUserInfo"];
+    _userInfoDictionary = (NSDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:kLastLoginUserInfo];
     if (_userInfoDictionary != nil) {
         
     }

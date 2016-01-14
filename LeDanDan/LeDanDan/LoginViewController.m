@@ -132,13 +132,20 @@
    // { userPhone:”123”, passWord:”132”}
     NSDictionary *dic = @{@"userPhone":_phoneTextField.text,@"passWord":_passwordTextfield.text,@"type":@"1",@"opened":@""};
     [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kLogin succeed:^(id success){
-        
-        [[YZXNetworking shared] saveLoginSuccessUserInfo:success];
-        NSLog(@"%@",[[success objectForKey:@"result"] objectForKey:@"id"]);
-        
-        [self dismissViewControllerAnimated:YES completion:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"islogin" object:nil];
-        }];
+
+        NSString *status = [NSString stringWithFormat:@"%@",[success objectForKey:@"status"]];
+        if ([status isEqualToString:@"200"]) {
+            [[YZXNetworking shared] saveLoginSuccessUserInfo:success];
+            [[YZXNetworking shared] showHint:[success objectForKey:@"message"]];
+            [self dismissViewControllerAnimated:YES completion:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"islogin" object:nil];
+            }];
+        }
+        else
+        {
+            [[YZXNetworking shared] showHint:[success objectForKey:@"message"]];
+        }
+       
         
     }failed:^(id error)
      {

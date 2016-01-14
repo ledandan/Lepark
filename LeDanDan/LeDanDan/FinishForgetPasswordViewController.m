@@ -73,11 +73,17 @@
 //完成
 -(void)finish
 {
+   NSDictionary *userDic =(NSDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:kLastLoginUserInfo];
+    
+    NSDictionary *dic = @{@"userId":@"",@"newPassWord":@""};
+   // [[YZXNetworking shared] requesUpdateInfoRequestdict:<#(NSDictionary *)#> withurl:<#(NSString *)#> succeed:<#^(id response)succeedBlock#> failed:<#^(id error)failedBlock#>]
     
     [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[LoginViewController new]] animated:YES completion:^{
        
         
     }];
+    
+    
 }
 
 
