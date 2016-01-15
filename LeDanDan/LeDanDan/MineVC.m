@@ -351,8 +351,17 @@ else
         //我的订单
         case 0:
             if (YES) {
-                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[OrderVC new]];
-                           [self presentViewController:nav animated:YES completion:nil];
+                
+                if (userDic) {
+                    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[OrderVC new]];
+                    [self presentViewController:nav animated:YES completion:nil];
+
+                }
+                else{
+                    [[YZXNetworking shared] showHint:@"您还未登录"];
+                }
+                
+                
             }
 
             break;

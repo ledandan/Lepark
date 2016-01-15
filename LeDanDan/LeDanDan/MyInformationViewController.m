@@ -15,7 +15,7 @@
 {
     NSArray *count;
     UITableView *_tableView;
-    UIButton *_headImage;
+    UIImageView *_headImage;
     
     
     NSString *name;
@@ -40,7 +40,9 @@
     NSString *_invitationCode;  //邀请码
     NSString *_lddNo;  //乐蛋蛋 id
     NSString *_logo;   //用户头像
-
+    NSString *_nickName; //昵称
+    int _sex;
+    NSString *_birth;
     
 }
 @end
@@ -69,6 +71,7 @@
 {
     
     [self dismissModalViewControllerAnimated:YES];
+    [_tableView reloadData];
     self.view.backgroundColor=[UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
     UIImage *searchimage=[UIImage imageNamed:@"back@2x"];
     UIBarButtonItem *barbtn=[[UIBarButtonItem alloc] initWithImage:searchimage style:UIBarButtonItemStylePlain target:self action:@selector(back)];
@@ -80,7 +83,25 @@
     
     _userInfoDictionary = nil;
     _userInfoDictionary = (NSDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:kLastLoginUserInfo];
+    NSLog(@"%@",_userInfoDictionary);
     if (_userInfoDictionary != nil) {
+        
+        _logo = [_userInfoDictionary objectForKey:@"logo"];
+        _nickName = [_userInfoDictionary objectForKey:@"nickName"];
+        _sex = (int)[_userInfoDictionary objectForKey:@"sex"];
+        _phone = [_userInfoDictionary objectForKey:@"phone"];
+        _birth = [_userInfoDictionary objectForKey:@"birthday"];
+        
+        NSString *str=_birth;//时间戳
+        NSTimeInterval time=[str doubleValue]+28800;//因为时差问题要加8小时 == 28800 sec
+        NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
+        NSLog(@"date:%@",[detaildate description]);
+        //实例化一个NSDateFormatter对象
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        //设定时间格式,这里可以设置成自己需要的格式
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        
+       _birth = [dateFormatter stringFromDate: detaildate];
         
     }
     [super viewWillAppear:animated];
@@ -109,15 +130,17 @@
     
     //头像
     // _headImage = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    _headImage = [UIButton buttonWithType:UIButtonTypeCustom];
+    _headImage = [[UIImageView alloc]init];
     _headImage.frame = CGRectMake(0, 0, 30, 30);
     // _headImage.image = [UIImage imageNamed:@"userhead@2x"];
-    [_headImage setImage:[UIImage imageNamed:@"userhead@2x"] forState:UIControlStateNormal];
+    //[_headImage setImage:[UIImage imageNamed:@"userhead@2x"] forState:UIControlStateNormal];
+    _headImage.image = [UIImage imageNamed:@"userhead@2x"];
     _headImage.x = kScreenWidth - 60-[UIImage imageNamed:@"getin@2x"].size.width;
     _headImage.layer.cornerRadius = 15;
     _headImage.layer.masksToBounds = YES;
     //_headImage.image = [UIImage imageNamed:@"1"];
     _headImage.centerY = 30;
+    [_headImage sd_setImageWithURL:[NSURL URLWithString:_logo]];
 }
 
 -(void)takePictureClick
@@ -165,18 +188,30 @@
 
 -(void)setPassword
 {
-    [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[ChangePasswordViewController new]] animated:YES completion:nil];
+    ChangePasswordViewController *changePassword = [ChangePasswordViewController new];
+    changePassword.phoneNumber = _phone;
+    [self presentViewController:[[UINavigationController alloc]initWithRootViewController:changePassword] animated:YES completion:nil];
 }
 
 //上次数据
 -(void)post :(NSString *)str
 {
-    NSDictionary *dic =@{@"userPhone":@"186",@"type":index,@"value":str};
+    
+ 
+    NSDictionary *dic =@{@"userPhone":_phone,@"type":index,@"value":str};
     
     NSLog(@"%@ , %@",index,str);
-    
-    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:@"http://120.26.212.55:8080/incidentally/api/userInfoUpdate/getUserInfoUpdate.html" succeed:^(id success){
+     MBProgressHUD *HUD= [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kAlter succeed:^(id success){
         
+        NSMutableDictionary *UserDic =(NSMutableDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:kLastLoginUserInfo];
+        NSMutableDictionary *newUserInfoDictionary = [NSMutableDictionary dictionaryWithDictionary:UserDic];
+        [newUserInfoDictionary setObject:str forKey:@"sex"];
+        [[NSUserDefaults standardUserDefaults] setObject:newUserInfoDictionary forKey:kLastLoginUserInfo];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        _sex = [str intValue];
+        [HUD removeFromSuperview];
+        [_tableView reloadData];
         NSLog(@"%@",success);
         
     }failed:^(id error){
@@ -251,18 +286,28 @@
             [cell.contentView addSubview:rightlabel];
             rightlabel.text = name;
             [cell.contentView addSubview:imageView];
+            rightlabel.text = _nickName;
             cell.textLabel.text = @"昵称";
             break;
         case 2:
             [cell.contentView addSubview:rightlabel];
             [cell.contentView addSubview:imageView];
             rightlabel.text = gender;
+            if (_sex == 1) {
+                rightlabel.text =@"男";
+            }
+            else
+            {
+                rightlabel.text = @"女";
+            }
             cell.textLabel.text = @"性别";
             break;
         case 4:
             [cell.contentView addSubview:rightlabel];
             [cell.contentView addSubview:imageView];
             rightlabel.text = @"186****788";
+            
+            rightlabel.text = [NSString stringWithFormat:@"%@****%@",[_phone substringToIndex:3],[_phone substringFromIndex:8]];
             cell.textLabel.text = @"手机号";
             break;
         case 5:
@@ -270,6 +315,7 @@
             [cell.contentView addSubview:imageView];
             cell.textLabel.text = @"出生日期";
             rightlabel.text= _dateString;
+            rightlabel.text = _birth;
             break;
         case 6:
             [cell.contentView addSubview:rightlabel];
@@ -315,8 +361,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ChangeMyNameViewController *changeName = [ChangeMyNameViewController new];
+    changeName.phoneNumber = _phone;
     ChangePhoneViewController *changePhone = [ChangePhoneViewController new];
-    
+    changePhone.phoneNumber = _phone;
     switch (indexPath.row) {
         case 0:
             //修改头像
@@ -388,16 +435,17 @@
         NSLog(@"%d",buttonIndex);
         switch (buttonIndex) {
             case 0:
-                gender = @"男";
+                gender = @"1"; //男
                 break;
             case 1:
-                gender = @"女";
+                gender = @"2"; //女
                 break;
             default:
                 break;
         }
         [_tableView reloadData];
         
+
         //post
         [self post:gender];
     }
@@ -438,8 +486,8 @@
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     NSLog(@"上传图像....");
-    [_headImage setImage:image forState:UIControlStateNormal];
-    
+  //  [_headImage setImage:image forState:UIControlStateNormal];
+    _headImage.image = image;
     CGSize imagesize = image.size;
     imagesize.height =10;
     imagesize.width =10;

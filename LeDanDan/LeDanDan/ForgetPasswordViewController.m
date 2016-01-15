@@ -81,19 +81,21 @@
 //下一步
 -(void)nextStep
 {
+    FinishForgetPasswordViewController *finish = [FinishForgetPasswordViewController new];
+    finish.phoneNumber = _phoneTextField.text;
     
-//    NSLog(@"%@%@",_codeStr,_passwordTextfield.text);
-//    if ([_codeStr isEqualToString:_passwordTextfield.text]) {
-//        
-//         [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[FinishForgetPasswordViewController new]] animated:YES completion:nil];
-//    }
-//    else{
-//        
-//        [[YZXNetworking shared] showHint:@"验证码不正确"];
-//        
-//    }
+    NSLog(@"%@%@",_codeStr,_passwordTextfield.text);
+    if ([_codeStr isEqualToString:_passwordTextfield.text]) {
+        
+         [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[FinishForgetPasswordViewController new]] animated:YES completion:nil];
+    }
+    else{
+        
+        [[YZXNetworking shared] showHint:@"验证码不正确"];
+        
+    }
     
-    [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[FinishForgetPasswordViewController new]] animated:YES completion:nil];
+   // [self presentViewController:[[UINavigationController alloc]initWithRootViewController:finish] animated:YES completion:nil];
    
 }
 

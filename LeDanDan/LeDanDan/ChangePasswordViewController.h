@@ -10,4 +10,6 @@
 
 @interface ChangePasswordViewController : UIViewController
 
+@property (nonatomic, copy) NSString *phoneNumber;
+
 @end

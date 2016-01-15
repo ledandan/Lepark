@@ -46,20 +46,21 @@
         [_playName sizeToFit];
         [self.contentView addSubview:_playName];
         
-        _price = [[UILabel alloc]initWithFrame:CGRectMake(_playImage.frame.origin.x + _playImage.frame.size.width +15, _playImage.bottom - 15, 80, 15)];
+        _price = [[UILabel alloc]initWithFrame:CGRectMake(_playImage.frame.origin.x + _playImage.frame.size.width +15, _playImage.bottom - 15, 280, 15)];
         _price.text = @"￥ 120";
         _price.textColor =[UIColor colorWithRed:0.96 green:0.5 blue:0.4 alpha:1];
         [self.contentView addSubview:_price];
 
-        _status = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.size.width, 22, 80, 15)];
+        _status = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.size.width -90, 22, 80, 15)];
         _status.text = @"待付款";
+        _status.textAlignment = UITextAlignmentRight;
         _status.textColor = [UIColor colorWithRed:0.96 green:0.5 blue:0.4 alpha:1];
-        _status.font = [UIFont systemFontOfSize:15];
+        _status.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:_status];
         
         
         _status_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _status_btn.frame = CGRectMake(kScreenWidth -100, _price.frame.origin.y - 30, 75, 30);
+        _status_btn.frame = CGRectMake(kScreenWidth -90, _playImage.bottom -30, 80, 30);
         [_status_btn setTitle:@"去付款" forState:UIControlStateNormal];
         _status_btn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
         _status_btn.backgroundColor = [UIColor colorWithRed:0.96 green:0.5 blue:0.4 alpha:1];

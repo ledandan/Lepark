@@ -73,15 +73,40 @@
 //完成
 -(void)finish
 {
-   NSDictionary *userDic =(NSDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:kLastLoginUserInfo];
     
-    NSDictionary *dic = @{@"userId":@"",@"newPassWord":@""};
-   // [[YZXNetworking shared] requesUpdateInfoRequestdict:<#(NSDictionary *)#> withurl:<#(NSString *)#> succeed:<#^(id response)succeedBlock#> failed:<#^(id error)failedBlock#>]
-    
-    [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[LoginViewController new]] animated:YES completion:^{
-       
+    if (_newPasswordTextField.text.length >= 6) {
         
-    }];
+        if ([_newPasswordTextField.text isEqualToString:_verPasswordTextfield.text]) {
+            NSString *md5Password = [[YZXNetworking shared]md5:_newPasswordTextField.text];
+            
+            NSDictionary *dic = @{@"userPhone":_phoneNumber,@"newPassWord":md5Password};
+            
+            [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kForgetPassword succeed:^(id success)
+             {
+                 [[YZXNetworking shared]showHint:@"修改成功"];
+                 [self presentViewController:[[UINavigationController alloc]initWithRootViewController:[LoginViewController new]] animated:YES completion:^{
+                     
+                     
+                 }];
+             }failed:^(id error)
+             {
+                 
+             }];
+
+        }
+        else
+        {
+             [[YZXNetworking shared]showHint:@"两次密码不一致"];
+        }
+           }
+    else{
+        
+        [[YZXNetworking shared]showHint:@"密码至少6位"];
+        
+    }
+   
+    
+   
     
     
 }

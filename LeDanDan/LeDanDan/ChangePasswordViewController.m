@@ -75,31 +75,48 @@
 
 -(void)sure
 {
-    [self dismissViewControllerAnimated:YES completion:^
+    
+    NSString *curPassword = (NSString *)[[NSUserDefaults standardUserDefaults]objectForKey:@"password"];
+    NSLog(@"%@",curPassword);
+    
+    if ([curPassword isEqualToString:_currentPassword.text]) {
+        
+        if ([_newPassword.text isEqualToString:_password.text]) {
+            
+            if (_newPassword.text.length >= 6) {
+                
+                MBProgressHUD *HUD= [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                
+                NSDictionary *dic = @{@"userPhone":_phoneNumber,@"type":@"2",@"value":_password.text};
+                [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kAlter succeed:^(id success)
+                 {
+                     
+                     [[NSUserDefaults standardUserDefaults] setObject:_password.text forKey:@"password"];
+                     [HUD removeFromSuperview];
+                     [self dismissViewControllerAnimated:YES completion:nil];
+                     
+                     
+                 }failed:^(id error)
+                 {
+                     
+                 }];
+                
+            }
+            else
+            {
+                [[YZXNetworking shared] showHint:@"密码只是6位"];
+            }
+            
+        }
+        else
+        {
+            [[YZXNetworking shared] showHint:@"两次密码输入不一致"];
+        }
+    }
+    else
     {
-        NSString *curPassword = [[YZXNetworking shared] md5:_currentPassword.text];
-        
-        NSString *newPassword = [[YZXNetworking shared] md5:_newPassword.text];
-
-        //格式{ userPhone:”123”,type:”1”,value:”123”}
-        
-        NSString *password = [NSString stringWithFormat:@"%@,%@",_currentPassword.text,_newPassword.text];
-        NSLog(@"password :%@",password);
-        
-        NSDictionary *dic =@{@"userPhone":@"186",@"type":@"7",@"value":password};
-        
-        NSLog(@"%@",_newPassword.text);
-        
-        [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kAlter succeed:^(id success){
-            
-            NSLog(@" success --%@",success);
-            
-        }failed:^(id error)
-         {
-             
-         }];
-
-    }];
+        [[YZXNetworking shared] showHint:@"当前密码不正确"];
+    }
 }
 
 

@@ -10,12 +10,14 @@
 #import "OrderTableViewCell.h"
 #import "OrderDetailViewController.h"
 #import "MJRefresh.h"
+#import "MyOrderModel.h"
 @interface OrderVC ()<UITableViewDataSource,UITableViewDelegate>
 {
     UILabel *_label;
     NSArray *_dataArr;
     
     UITableView *_tableView;
+    NSMutableArray *_orderArr;
 }
 
 @end
@@ -24,11 +26,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.96f green:0.5f blue:0.4f alpha:1];
     
-    self.navigationController.navigationBar.translucent=NO;
+    _orderArr = [[NSMutableArray alloc]init];
+   
     [super viewDidLoad];
     self.title=@"我的订单";
+    
+    _dataArr = [NSArray arrayWithObjects:@"大",@"中",@"小", nil];
+    //_dataArr = [NSArray arrayWithObjects:nil];
+    [self loadData];
+    
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.96f green:0.5f blue:0.4f alpha:1];
+    self.view.backgroundColor=[UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
+
+    self.navigationController.navigationBar.translucent=NO;
     
     self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStyleDone target:self action:@selector(back)];
     
@@ -38,9 +53,31 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
         
     }
-    _dataArr = [NSArray arrayWithObjects:@"大",@"中",@"小", nil];
-    //_dataArr = [NSArray arrayWithObjects:nil];
-    [self addAllControl];
+
+}
+
+-(void)loadData
+{
+   // {userId:”123”,”type”:”1”,”page”:”1”,”pageNumber”:”10”}
+    NSDictionary *dic = @{@"userId":@"3",@"type":@"0",@"page":@"1",@"pageNumber":@"10"};
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kMyOrder succeed:^(id success)
+     {
+         NSArray *arr = nil;
+         arr =(NSMutableArray *)[success objectForKey:@"result"];
+         for (int i = 0; i < arr.count; i++) {
+             
+             NSMutableDictionary *orderDic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:i]];
+             MyOrderModel *orderModel =[[MyOrderModel alloc]initWithDictionary:orderDic error:nil];
+             [_orderArr addObject:orderModel];
+
+             
+         }
+         [self addAllControl];
+         
+     }failed:^(id error)
+     {
+         NSLog(@"%@",error);
+     }];
 }
 -(void)addAllControl
 {
@@ -152,7 +189,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSLog(@"计算每组(组%li)行数",(long)section);
     
-    return 10;
+    return _orderArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -161,11 +198,43 @@
     static NSString *cellID = @"cellID";
     
     OrderTableViewCell *cell= [tableView dequeueReusableCellWithIdentifier:cellID];
+   
     if (cell == nil) {
+       
+        NSLog(@"%@",_orderArr[indexPath.row]);
+       
         // cell = [[[NSBundle mainBundle]loadNibNamed:@"ShopTableViewCell" owner:self options:nil] lastObject];
         cell = [[OrderTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-        
+        //cell.playName.text = model.activitysName;
+        MyOrderModel *model = (MyOrderModel *)_orderArr[indexPath.row];
+        cell.playName.text = model.activitysName;
+        cell.price.text = [NSString stringWithFormat:@"￥ %@",model.activitysPrice];
+        [cell.playImage sd_setImageWithURL:[NSURL URLWithString:model.activitysLogo]];
+        if ([model.status isEqualToString:@"1"]) {
+            
+            cell.status.text = @"下订单";
+
+        }
+        else if ([model.status isEqualToString:@"2"])
+        {
+            cell.status.text = @"已支付";
+        }
+        else if ([model.status isEqualToString:@"3"])
+        {
+            cell.status.text = @"待出行";
+        }
+        else if([model.status isEqualToString:@"4"])
+        {
+            cell.status.text = @"待评价";
+            
+        }
+        else
+        {
+            cell.status.text = @"删除订单";
+        }
+            
     }
+
     [cell.status_btn addTarget:self action:@selector(pay:) forControlEvents:UIControlEventTouchUpInside];
     UIView *backView = [[UIView alloc] initWithFrame:cell.frame];
     cell.selectedBackgroundView = backView;

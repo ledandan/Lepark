@@ -76,7 +76,35 @@
 
 -(void)finish
 {
+    if ([_codeStr isEqualToString:_codeTextField.text]) {
     
+        MBProgressHUD *HUD= [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        NSDictionary *dic = @{@"userPhone":_phoneNumber,@"type":@"4",@"value":_phoneTextField.text};
+        [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kAlter succeed:^(id success)
+         {
+             NSLog(@"%@",success);
+             NSMutableDictionary *UserDic =(NSMutableDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:kLastLoginUserInfo];
+             NSMutableDictionary *newUserInfoDictionary = [NSMutableDictionary dictionaryWithDictionary:UserDic];
+             [newUserInfoDictionary setObject:_phoneTextField.text forKey:@"phone"];
+             [[NSUserDefaults standardUserDefaults] setObject:newUserInfoDictionary forKey:kLastLoginUserInfo];
+             [[NSUserDefaults standardUserDefaults] synchronize];
+             [HUD removeFromSuperview];
+             [self dismissViewControllerAnimated:YES completion:nil];
+             
+         }failed:^(id error)
+         {
+             NSLog(@"%@",error);
+         }];
+    
+    }
+    else
+    {
+        [[YZXNetworking shared] showHint:@"请正确填写验证码"];
+    }
+    
+    
+    
+   
 }
 
 #pragma mark -----------tableView delegate ------------

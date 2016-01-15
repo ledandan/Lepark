@@ -21,7 +21,7 @@
     // Do any additional setup after loading the view.
     self.title = @"昵称";
     
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(reset)];
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(resetNickname)];
     [rightButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                          [UIFont fontWithName:@"Helvetica"size:18],NSFontAttributeName,
                                          [UIColor whiteColor],NSForegroundColorAttributeName,
@@ -76,12 +76,28 @@
 }
 
 //保存
--(void)reset
+-(void)resetNickname
 {
-    
+    MBProgressHUD *HUD= [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSDictionary *dic = @{@"userPhone":_phoneNumber,@"type":@"2",@"value":_textField.text};
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kAlter succeed:^(id success)
+     {
+         NSLog(@"%@",success);
+        NSMutableDictionary *UserDic =(NSMutableDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:kLastLoginUserInfo];
+        NSMutableDictionary *newUserInfoDictionary = [NSMutableDictionary dictionaryWithDictionary:UserDic];
+        [newUserInfoDictionary setObject:_textField.text forKey:@"nickName"];
+        [[NSUserDefaults standardUserDefaults] setObject:newUserInfoDictionary forKey:kLastLoginUserInfo];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+         [HUD removeFromSuperview];
+         [self dismissViewControllerAnimated:YES completion:nil];
+         
+     }failed:^(id error)
+     {
+         NSLog(@"%@",error);
+     }];
 }
 
-#pragma mark  -------TextFieldDelegate -------- 
+#pragma mark  -------TextFieldDelegate --------
 
 - (CGRect)editingRectForBounds:(CGRect)bounds {
     CGRect rect = [self editingRectForBounds:bounds];

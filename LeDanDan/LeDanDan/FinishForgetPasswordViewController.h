@@ -10,4 +10,7 @@
 
 @interface FinishForgetPasswordViewController : UIViewController
 
+
+@property (nonatomic, copy) NSString *phoneNumber;
+
 @end

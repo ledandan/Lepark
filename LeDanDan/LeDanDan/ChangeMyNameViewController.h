@@ -10,4 +10,5 @@
 
 @interface ChangeMyNameViewController : UIViewController
 @property (nonatomic,copy) NSString *name;
+@property (nonatomic, copy) NSString *phoneNumber;
 @end

@@ -35,9 +35,9 @@
         _time.text=@"周六";
         _time.font=[UIFont systemFontOfSize:12];
         [self.contentView addSubview:_time];
-        _address= [[UILabel alloc]initWithFrame:CGRectMake(_playImage.frame.origin.x + _playImage.frame.size.width +15, _time.bottom+ 5, 80, 15)];
+        _address= [[UILabel alloc]initWithFrame:CGRectMake(_playImage.frame.origin.x + _playImage.frame.size.width +15, _playImage.bottom - 15, 180, 15)];
         _address.text = @"上海市";
-        _address.font =[UIFont systemFontOfSize:16];
+        _address.font =[UIFont systemFontOfSize:14];
         _address.textColor = [UIColor grayColor];
         [self.contentView addSubview:_address];
     

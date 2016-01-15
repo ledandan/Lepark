@@ -450,6 +450,7 @@
 		670DE44F1BFF03FE0067561D /* star_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 670DE4491BFF03FE0067561D /* star_select@2x.png */; };
 		670DE4501BFF03FE0067561D /* star_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 670DE44A1BFF03FE0067561D /* star_select@3x.png */; };
 		672AE8DC1C2BC52400706E5A /* ChangePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 672AE8DB1C2BC52400706E5A /* ChangePhoneViewController.m */; };
+		6768078F1C48E807004852D2 /* MyCollectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6768078E1C48E807004852D2 /* MyCollectionModel.m */; };
 		677A862D1C1EAF5F00433FC4 /* thirdLogin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677A862C1C1EAF5F00433FC4 /* thirdLogin@2x.png */; };
 		677A86591C1EB20000433FC4 /* QQConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 677A86321C1EB20000433FC4 /* QQConnection.framework */; };
 		677A865A1C1EB20000433FC4 /* QZoneConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 677A86331C1EB20000433FC4 /* QZoneConnection.framework */; };
@@ -523,7 +524,6 @@
 		67CAF9441C44D0930076C47C /* PhoneContractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67CAF9431C44D0930076C47C /* PhoneContractViewController.m */; };
 		67CAF9461C44D1400076C47C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67CAF9451C44D1400076C47C /* AddressBook.framework */; };
 		67CAF9481C44D1470076C47C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67CAF9471C44D1470076C47C /* AddressBookUI.framework */; };
-		67CAF94B1C44DA0B0076C47C /* CContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 67CAF94A1C44DA0B0076C47C /* CContact.m */; };
 		67E5FC701C473F6100A0E288 /* ShareSDKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 67E5FC721C473F6100A0E288 /* ShareSDKLocalizable.strings */; };
 		67E5FC771C47403500A0E288 /* discountOfMoney.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E5FC741C47403500A0E288 /* discountOfMoney.png */; };
 		67E5FC781C47403500A0E288 /* discountOfMoney@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E5FC751C47403500A0E288 /* discountOfMoney@2x.png */; };
@@ -531,6 +531,7 @@
 		67E5FC7D1C47446800A0E288 /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E5FC7A1C47446800A0E288 /* button.png */; };
 		67E5FC7E1C47446800A0E288 /* button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E5FC7B1C47446800A0E288 /* button@2x.png */; };
 		67E5FC7F1C47446800A0E288 /* button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 67E5FC7C1C47446800A0E288 /* button@3x.png */; };
+		67E5FC821C48D3FF00A0E288 /* MyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E5FC811C48D3FF00A0E288 /* MyOrderModel.m */; };
 		DC38B82A1BE9A6C50014D06A /* CollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC38B8281BE9A6C50014D06A /* CollectionTableViewCell.m */; };
 		DC38B82E1BE9B63F0014D06A /* TravleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC38B82D1BE9B63F0014D06A /* TravleVC.m */; };
 		DC38B8321BE9E1040014D06A /* TravleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC38B8301BE9E1040014D06A /* TravleTableViewCell.m */; };
@@ -1235,6 +1236,8 @@
 		670DE44A1BFF03FE0067561D /* star_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_select@3x.png"; sourceTree = "<group>"; };
 		672AE8DA1C2BC52400706E5A /* ChangePhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePhoneViewController.h; sourceTree = "<group>"; };
 		672AE8DB1C2BC52400706E5A /* ChangePhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneViewController.m; sourceTree = "<group>"; };
+		6768078D1C48E807004852D2 /* MyCollectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCollectionModel.h; sourceTree = "<group>"; };
+		6768078E1C48E807004852D2 /* MyCollectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCollectionModel.m; sourceTree = "<group>"; };
 		677A862C1C1EAF5F00433FC4 /* thirdLogin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thirdLogin@2x.png"; sourceTree = "<group>"; };
 		677A86321C1EB20000433FC4 /* QQConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QQConnection.framework; sourceTree = "<group>"; };
 		677A86331C1EB20000433FC4 /* QZoneConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QZoneConnection.framework; sourceTree = "<group>"; };
@@ -1341,8 +1344,6 @@
 		67CAF9431C44D0930076C47C /* PhoneContractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneContractViewController.m; sourceTree = "<group>"; };
 		67CAF9451C44D1400076C47C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		67CAF9471C44D1470076C47C /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
-		67CAF9491C44DA0B0076C47C /* CContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CContact.h; sourceTree = "<group>"; };
-		67CAF94A1C44DA0B0076C47C /* CContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CContact.m; sourceTree = "<group>"; };
 		67E5FC711C473F6100A0E288 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ShareSDKLocalizable.strings"; sourceTree = "<group>"; };
 		67E5FC731C473F6C00A0E288 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ShareSDKLocalizable.strings; sourceTree = "<group>"; };
 		67E5FC741C47403500A0E288 /* discountOfMoney.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discountOfMoney.png; sourceTree = "<group>"; };
@@ -1351,6 +1352,8 @@
 		67E5FC7A1C47446800A0E288 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		67E5FC7B1C47446800A0E288 /* button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@2x.png"; sourceTree = "<group>"; };
 		67E5FC7C1C47446800A0E288 /* button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button@3x.png"; sourceTree = "<group>"; };
+		67E5FC801C48D3FF00A0E288 /* MyOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderModel.h; sourceTree = "<group>"; };
+		67E5FC811C48D3FF00A0E288 /* MyOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderModel.m; sourceTree = "<group>"; };
 		9EE1D1AAF45C79352F65B903 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAFC2425F0F37042226A214D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		DC38B8271BE9A6C50014D06A /* CollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionTableViewCell.h; path = LeDanDan/CollectionTableViewCell.h; sourceTree = "<group>"; };
@@ -2787,8 +2790,10 @@
 		670DE4101BFC29DC0067561D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				67CAF9491C44DA0B0076C47C /* CContact.h */,
-				67CAF94A1C44DA0B0076C47C /* CContact.m */,
+				67E5FC801C48D3FF00A0E288 /* MyOrderModel.h */,
+				67E5FC811C48D3FF00A0E288 /* MyOrderModel.m */,
+				6768078D1C48E807004852D2 /* MyCollectionModel.h */,
+				6768078E1C48E807004852D2 /* MyCollectionModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -3758,6 +3763,7 @@
 				6702EDF51C3E50780033578A /* MWZoomingScrollView.m in Sources */,
 				6702EE1B1C3E50780033578A /* NSObject+EaseMob.m in Sources */,
 				6702EE251C3E50780033578A /* EaseEmotionManager.m in Sources */,
+				67E5FC821C48D3FF00A0E288 /* MyOrderModel.m in Sources */,
 				6702EE341C3E50780033578A /* EaseBubbleView+Video.m in Sources */,
 				6702EE1F1C3E50780033578A /* EaseChineseToPinyin.m in Sources */,
 				6702EE3F1C3E50780033578A /* EaseConversationCell.m in Sources */,
@@ -3865,7 +3871,6 @@
 				6702EDD51C3E50780033578A /* EMAudioPlayerUtil.m in Sources */,
 				6702EEBB1C3F53AC0033578A /* EMGifImage.m in Sources */,
 				DCA558C71BDF4BBB004502C1 /* NTViewController.m in Sources */,
-				67CAF94B1C44DA0B0076C47C /* CContact.m in Sources */,
 				6702EE2B1C3E50780033578A /* EaseViewController.m in Sources */,
 				6702EE281C3E50780033578A /* EaseMessageViewController.m in Sources */,
 				6702EE071C3E50780033578A /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
@@ -3885,6 +3890,7 @@
 				6702EE211C3E50780033578A /* EaseMessageReadManager.m in Sources */,
 				6702EE161C3E50780033578A /* EaseConversationModel.m in Sources */,
 				679E7D481C2B9B8500B010F4 /* ChangeMyNameViewController.m in Sources */,
+				6768078F1C48E807004852D2 /* MyCollectionModel.m in Sources */,
 				DC38B8321BE9E1040014D06A /* TravleTableViewCell.m in Sources */,
 				6702EE1E1C3E50780033578A /* UIViewController+HUD.m in Sources */,
 				6702EDD91C3E50780033578A /* EMCDDeviceManager+ProximitySensor.m in Sources */,

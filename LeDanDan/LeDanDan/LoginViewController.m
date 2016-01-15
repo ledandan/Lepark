@@ -130,16 +130,20 @@
 -(void)loginlogin
 {
    // { userPhone:”123”, passWord:”132”}
-    NSDictionary *dic = @{@"userPhone":_phoneTextField.text,@"passWord":_passwordTextfield.text,@"type":@"1",@"opened":@""};
+    NSString *MD5Password = [[YZXNetworking shared]md5:_passwordTextfield.text];
+    NSDictionary *dic = @{@"userPhone":_phoneTextField.text,@"passWord":MD5Password,@"type":@"1",@"opened":@""};
     [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kLogin succeed:^(id success){
 
         NSString *status = [NSString stringWithFormat:@"%@",[success objectForKey:@"status"]];
         if ([status isEqualToString:@"200"]) {
+            
             [[YZXNetworking shared] saveLoginSuccessUserInfo:success];
+            [[NSUserDefaults standardUserDefaults] setObject:_passwordTextfield.text forKey:@"password"];
             [[YZXNetworking shared] showHint:[success objectForKey:@"message"]];
             [self dismissViewControllerAnimated:YES completion:^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"islogin" object:nil];
             }];
+        
         }
         else
         {

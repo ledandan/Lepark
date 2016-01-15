@@ -2,16 +2,17 @@
 //  CollectionVC.m
 //  LeDanDan
 //
-//  Created by 辫子 on 15/11/4.
+//  Created by yzx on 15/11/4.
 //  Copyright © 2015年 herryhan. All rights reserved.
 //
 
 #import "CollectionVC.h"
 #import "CollectionTableViewCell.h"
 #import "MJRefresh.h"
+#import "MyCollectionModel.h"
 @interface CollectionVC ()<UITableViewDataSource,UITableViewDelegate>
 {
-    NSArray *_dataArr;
+    NSMutableArray *_dataArr;
     UITableView *_tableView;
 }
 
@@ -22,6 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    _dataArr = [[NSMutableArray alloc]init];
+    
     UIButton *backBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame=CGRectMake(0, 0, 40, 40);
     [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
@@ -39,9 +43,10 @@
         
     }
     self.navigationController.navigationBar.translucent=NO;
-    
+    self.view.backgroundColor=[UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
+
     [self loadData];
-    [self collectTB];
+    
 }
 
 -(void)loadData
@@ -49,11 +54,18 @@
     NSDictionary *userDic = [[NSUserDefaults standardUserDefaults]objectForKey:kLastLoginUserInfo];
     
     NSString *ID =[NSString stringWithFormat:@"%d",(int)[userDic objectForKey:@"id"]];
-    NSDictionary *dic = @{@"userId":ID};
+    NSDictionary *dic = @{@"userId":@"1"};
     [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kMyCollection succeed:^(id success)
      {
          
          NSLog(@"%@",[success objectForKey:@"result"]);
+         NSArray *arr =(NSArray *)[success objectForKey:@"result"];
+         for (int i = 0; i< arr.count; i++) {
+             MyCollectionModel *model = [[MyCollectionModel alloc]initWithDictionary:arr[i] error:nil];
+             [_dataArr addObject:model];
+         }
+         [self collectTB];
+       
          
      }failed:^(id error)
      {
@@ -64,7 +76,7 @@
 }
 -(void)collectTB
 {
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height -30) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height ) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
@@ -81,6 +93,17 @@
 -(void)isCollection: (UIButton *)btn
 {
     NSLog(@"收储");
+    MyCollectionModel *model = (MyCollectionModel *)_dataArr[btn.tag];
+    NSDictionary *dic = @{@"collectionsId":model.collectionId};
+    [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kcancelCOllection succeed:^(id success)
+     {
+         NSLog(@"%@",success);
+         [_tableView reloadData];
+
+     }failed:^(id error)
+     {
+         NSLog(@"%@",error);
+     }];
 }
 
 #pragma mark ---------uiTableViewDelegate -------
@@ -104,7 +127,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSLog(@"计算每组(组%li)行数",(long)section);
     
-    return 10;
+    return _dataArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -116,9 +139,16 @@
     if (cell == nil) {
         // cell = [[[NSBundle mainBundle]loadNibNamed:@"ShopTableViewCell" owner:self options:nil] lastObject];
         cell = [[CollectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        MyCollectionModel *model = (MyCollectionModel *)_dataArr[indexPath.row];
+        cell.playName.text = model.activitysName;
+        cell.time.text = model.activitysDateTime;
+        cell.address.text = model.activitysAddress;
+        cell.price.text = model.activitysPrice;
+        cell.NoCollection.tag = indexPath.row;
+        [cell.NoCollection addTarget:self action:@selector(isCollection:) forControlEvents:UIControlEventTouchUpInside];
         
     }
-    [cell.NoCollection addTarget:self action:@selector(isCollection:) forControlEvents:UIControlEventTouchUpInside];
+    
     UIView *backView = [[UIView alloc] initWithFrame:cell.frame];
     cell.selectedBackgroundView = backView;
     cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
