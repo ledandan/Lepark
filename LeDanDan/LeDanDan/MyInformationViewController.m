@@ -201,9 +201,10 @@
     NSDictionary *dic =@{@"userPhone":_phone,@"type":index,@"value":str};
     
     NSLog(@"%@ , %@",index,str);
-     MBProgressHUD *HUD= [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kAlter succeed:^(id success){
         
+         MBProgressHUD *HUD= [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         NSMutableDictionary *UserDic =(NSMutableDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:kLastLoginUserInfo];
         NSMutableDictionary *newUserInfoDictionary = [NSMutableDictionary dictionaryWithDictionary:UserDic];
         [newUserInfoDictionary setObject:str forKey:@"sex"];

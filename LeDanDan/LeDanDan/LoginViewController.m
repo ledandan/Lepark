@@ -132,6 +132,7 @@
    // { userPhone:”123”, passWord:”132”}
     NSString *MD5Password = [[YZXNetworking shared]md5:_passwordTextfield.text];
     NSDictionary *dic = @{@"userPhone":_phoneTextField.text,@"passWord":MD5Password,@"type":@"1",@"opened":@""};
+    NSLog(@"%@",MD5Password);
     [[YZXNetworking shared] requesUpdateInfoRequestdict:dic withurl:kLogin succeed:^(id success){
 
         NSString *status = [NSString stringWithFormat:@"%@",[success objectForKey:@"status"]];
@@ -143,18 +144,21 @@
             [self dismissViewControllerAnimated:YES completion:^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"islogin" object:nil];
             }];
-        
         }
         else
         {
+            
             [[YZXNetworking shared] showHint:[success objectForKey:@"message"]];
+            
         }
-       
-        
+
     }failed:^(id error)
      {
+         
          NSLog(@"%@",error);
+         
      }];
+    
     
 }
 

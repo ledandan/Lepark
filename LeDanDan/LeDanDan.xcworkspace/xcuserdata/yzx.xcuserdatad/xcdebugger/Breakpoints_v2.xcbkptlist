@@ -67,11 +67,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeDanDan/MyInformationViewController.m"
-            timestampString = "474532424.393261"
+            timestampString = "474544023.798463"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "-checkOneDate:"
             landmarkType = "5">
          </BreakpointContent>
